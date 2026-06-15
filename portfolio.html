@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arieh Allouche — Data Analyst Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS & VARIABLES ────────────────────────────── */
+    :root {
+      --bg:          #0A0E1A;
+      --bg-card:     #111827;
+      --bg-card2:    #1A2235;
+      --border:      #1E2D45;
+      --accent:      #3B9EFF;
+      --accent-glow: rgba(59, 158, 255, 0.22);
+      --accent2:     #64FFDA;
+      --accent2-glow: rgba(100, 255, 218, 0.15);
+      --text-hi:     #E8EDF4;
+      --text-mid:    #94A3B8;
+      --text-lo:     #4A5568;
+      --tag-py:      rgba(59, 130, 246, 0.18);
+      --tag-py-t:    #60A5FA;
+      --tag-bi:      rgba(234, 179, 8, 0.18);
+      --tag-bi-t:    #FCD34D;
+      --tag-sql:     rgba(52, 211, 153, 0.18);
+      --tag-sql-t:   #34D399;
+      --tag-tab:     rgba(248, 113, 113, 0.18);
+      --tag-tab-t:   #F87171;
+      --tag-str:     rgba(167, 139, 250, 0.18);
+      --tag-str-t:   #A78BFA;
+      --tag-gen:     rgba(244, 63, 94, 0.15);
+      --tag-gen-t:   #FB7185;
+      --transition:  all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ─── SCROLL PROGRESS BAR ──────────────────────────── */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text-hi);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ─── SCROLLBAR ──────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ─── CUSTOM TOOLTIPS (INFOBULLES) ──────────────────── */
+    [data-tooltip] {
+      position: relative;
+      cursor: help;
+    }
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: var(--bg-card2);
+      color: var(--text-hi);
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.4;
+      white-space: normal;
+      width: 210px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 100;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      text-align: center;
+    }
+    [data-tooltip]:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6vw;
+      height: 70px;
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-hi);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-links a {
+      color: var(--text-mid);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: var(--transition);
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Mobile Menu Button */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 101;
+    }
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-hi);
+      margin: 5px 0;
+      transition: var(--transition);
+    }
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 14, 26, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mobile-menu-overlay a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-hi);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .mobile-menu-overlay a:hover {
+      color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .btn-nav-cta {
+      padding: 0.5rem 1.2rem;
+      background: rgba(59, 158, 255, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: var(--transition);
+    }
+    .btn-nav-cta:hover {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 6vw 80px;
+      overflow: hidden;
+    }
+    .hero-canvas {
+      position: absolute; inset: 0; z-index: 0;
+      pointer-events: all;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 820px; }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 30px; height: 1px;
+      background: var(--accent);
+    }
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #10B981;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .availability-dot {
+      width: 6px;
+      height: 6px;
+      background: #10B981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text-hi);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .highlight {
+      color: var(--accent);
+      position: relative;
+    }
+    .hero-title .cursor {
+      display: inline-block;
+      width: 4px; height: 0.9em;
+      background: var(--accent);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      max-width: 640px;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+    .hero-desc strong { color: var(--text-hi); font-weight: 600; }
+    .hero-ctas { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: #5aaeff;
+      box-shadow: 0 0 28px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex; gap: 3.5rem; flex-wrap: wrap;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { text-align: left; }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-hi);
+      line-height: 1;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-lo);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.5rem;
+    }
+
+    /* ─── SECTIONS COMMON ────────────────────────────────── */
+    section { padding: 110px 6vw; position: relative; }
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .section-eyebrow::before {
+      content: '';
+      display: block; width: 26px; height: 1px;
+      background: var(--accent);
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.85rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-hi);
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--text-mid);
+      font-size: 1.05rem;
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ─── SKILLS & PLAYGROUND ────────────────────────────── */
+    #skills { background: var(--bg-card); }
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    @media (max-width: 1150px) {
+      .skills-layout { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .skill-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .skill-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-hi);
+      margin-bottom: 0.5rem;
+    }
+    .skill-desc { font-size: 0.84rem; color: var(--text-mid); line-height: 1.5; }
+
+    /* SQL Console Sandbox */
+    .sql-sandbox {
+      background: #080C14;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+    }
+    .sql-header {
+      background: #0f1524;
+      padding: 0.8rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .sql-dots { display: flex; gap: 0.4rem; }
+    .sql-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .sql-dot.red { background: #EF4444; }
+    .sql-dot.yellow { background: #F59E0B; }
+    .sql-dot.green { background: #10B981; }
+    .sql-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-lo);
+    }
+    .sql-body { padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+    .sql-prompt { color: var(--accent2); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .sql-select-wrapper { margin: 1rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    
+    .sql-btn {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      color: var(--text-hi);
+      padding: 0.35rem 0.7rem;
+      border-radius: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .sql-btn:hover, .sql-btn.active {
+      border-color: var(--accent);
+      background: rgba(59, 158, 255, 0.15);
+      color: var(--accent);
+    }
+    .sql-btn-run {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.4rem 1.2rem;
+      border-radius: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      margin-top: 0.5rem;
+    }
+    .sql-btn-run:hover {
+      background: #5aaeff;
+      box-shadow: 0 0 10px rgba(59,158,255,0.3);
+    }
+    .sql-editor {
+      background: #04070D;
+      border: 1px solid rgba(30, 45, 69, 0.6);
+      padding: 1rem;
+      border-radius: 6px;
+      color: #93C5FD;
+      min-height: 55px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .sql-output-area {
+      background: #020408;
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      min-height: 180px;
+      color: var(--text-mid);
+      overflow-x: auto;
+      position: relative;
+    }
+    .sql-loading {
+      display: none;
+      color: var(--accent2);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      align-items: center; gap: 0.5rem;
+    }
+    .sql-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.74rem;
+      color: var(--text-hi);
+      margin-top: 0.5rem;
+      white-space: nowrap;
+    }
+    .sql-table th {
+      border-bottom: 2px solid var(--border);
+      color: var(--accent2);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+    .sql-table td {
+      border-bottom: 1px solid rgba(30, 45, 69, 0.4);
+      padding: 0.5rem 0.75rem;
+      color: var(--text-mid);
+    }
+    .sql-table tr:hover td {
+      color: var(--text-hi);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* ─── NEW SECTION: RIGUEUR DATA ─────────────────────── */
+    #rigueur { background: var(--bg); }
+    .rigueur-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .rigueur-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    .dq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .dq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      position: relative;
+      transition: var(--transition);
+    }
+    .dq-item:hover {
+      border-color: var(--accent2);
+      transform: translateX(4px);
+    }
+    .dq-badge {
+      position: absolute;
+      top: 1.25rem; right: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent2);
+      background: rgba(100, 255, 218, 0.1);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+    .dq-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-hi);
+      margin-bottom: 0.4rem;
+    }
+    .dq-desc {
+      font-size: 0.86rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+    .dq-desc strong { color: var(--text-hi); }
+    
+    .rigueur-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+    .rigueur-box {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .rigueur-box-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-hi);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .rigueur-box-title span { font-size: 1.4rem; }
+    .rigueur-box-text {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+    .rigueur-box-text p { margin-bottom: 1rem; }
+    .rigueur-box-text strong { color: var(--text-hi); }
+
+    /* Excel Carousel */
+    .excel-carousel {
+      margin-top: 1.5rem;
+      position: relative;
+      width: 100%;
+      height: 350px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      height: 100%;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .carousel-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      color: var(--text-hi);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .carousel-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+    .carousel-dots {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .carousel-dot.active {
+      background: var(--accent);
+      transform: scale(1.2);
+    }
+
+    /* ─── PROJECTS ───────────────────────────────────────── */
+    #projects { background: var(--bg-card); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2rem;
+    }
+    @media (max-width: 640px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex; flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 2;
+    }
+    .project-card:hover {
+      border-color: rgba(59, 158, 255, 0.45);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    /* Visual preview on hover */
+    .project-visual-wrapper {
+      height: 160px;
+      background: #090E1A;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .project-visual-preview {
+      width: 100%; height: 100%;
+      transition: transform 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .project-card:hover .project-visual-preview {
+      transform: scale(1.06);
+    }
+
+    /* Project body content */
+    .project-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .project-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent2);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-hi);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .project-pitch {
+      font-size: 0.88rem;
+      color: var(--text-hi);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* Storytelling Tabs System */
+    .project-tabs-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+      gap: 0.25rem;
+    }
+    .tab-trigger {
+      background: none;
+      border: none;
+      color: var(--text-lo);
+      padding: 0.4rem 0.6rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition);
+    }
+    .tab-trigger::after {
+      content: '';
+      position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+    .tab-trigger.active {
+      color: var(--text-hi);
+    }
+    .tab-trigger.active::after {
+      transform: scaleX(1);
+    }
+    .project-tab-content {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+      min-height: 110px;
+      margin-bottom: 1.25rem;
+    }
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Project Tags (Tooltips active) */
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; margin-top: auto; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: var(--transition);
+    }
+    .tag-py  { background: var(--tag-py);  color: var(--tag-py-t); border-color: rgba(59,130,246,0.1); }
+    .tag-bi  { background: var(--tag-bi);  color: var(--tag-bi-t); border-color: rgba(234,179,8,0.1); }
+    .tag-sql { background: var(--tag-sql); color: var(--tag-sql-t); border-color: rgba(52,211,153,0.1); }
+    .tag-tab { background: var(--tag-tab); color: var(--tag-tab-t); border-color: rgba(248,113,113,0.1); }
+    .tag-str { background: var(--tag-str); color: var(--tag-str-t); border-color: rgba(167,139,250,0.1); }
+    .tag-gen { background: var(--tag-gen); color: var(--tag-gen-t); border-color: rgba(244,63,94,0.1); }
+    .tag:hover {
+      transform: scale(1.05);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .project-actions {
+      display: flex; gap: 1rem; align-items: center;
+      border-top: 1px solid rgba(30, 45, 69, 0.4);
+      padding-top: 1rem;
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .project-link:hover { color: #5aaeff; transform: translateX(2px); }
+    .project-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    /* ─── ABOUT ──────────────────────────────────────────── */
+    #about { background: var(--bg-card); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .about-text p {
+      color: var(--text-mid);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+    .about-text p strong { color: var(--text-hi); }
+    .about-right { display: flex; flex-direction: column; gap: 1rem; }
+    .about-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      transition: var(--transition);
+    }
+    .about-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+    .about-card-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .about-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-hi);
+      margin-bottom: 0.25rem;
+    }
+    .about-card-sub { font-size: 0.84rem; color: var(--text-mid); }
+
+    /* ─── CONTACT ────────────────────────────────────────── */
+    #contact {
+      text-align: center;
+      background: var(--bg);
+      padding: 120px 6vw;
+    }
+    .contact-box {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-box .section-title { margin-bottom: 1rem; }
+    .contact-box .section-sub { margin: 0 auto 2.5rem; }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 6vw;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-lo);
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer a { color: var(--text-lo); text-decoration: none; transition: var(--transition); }
+    footer a:hover { color: var(--accent); }
+
+    /* ─── FLOATING CONTACT BADGE & MODAL ─────────────────── */
+    .floating-contact-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 90;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      border-radius: 50px;
+      padding: 0.85rem 1.4rem;
+      color: #0A0E1A;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(59, 158, 255, 0.4);
+      transition: var(--transition);
+      animation: pulseGlow 2s infinite alternate;
+    }
+    .floating-contact-btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 12px 35px rgba(59, 158, 255, 0.55);
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 4px 15px rgba(59, 158, 255, 0.3); }
+      100% { box-shadow: 0 10px 30px rgba(59, 158, 255, 0.5); }
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      z-index: 85;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .back-to-top:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .back-to-top svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* Modal Overlay styling */
+    .contact-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: rgba(6, 9, 18, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 1.5rem;
+    }
+    .contact-modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .contact-modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 460px;
+      padding: 2.25rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+      transform: translateY(20px) scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .contact-modal-overlay.active .contact-modal {
+      transform: translateY(0) scale(1);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: none; border: none;
+      color: var(--text-mid);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .modal-close-btn:hover { color: var(--accent); }
+    
+    .modal-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-hi);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .modal-title span { color: var(--accent); }
+    .modal-desc {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+    .modal-email-box {
+      background: #0A0E1A;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .modal-email-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent2);
+    }
+    .modal-copy-btn {
+      background: var(--accent);
+      border: none;
+      border-radius: 4px;
+      color: white;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.78rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .modal-copy-btn:hover { background: #5aaeff; }
+    
+    .modal-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .modal-link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      padding: 0.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .modal-link-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(59, 158, 255, 0.05);
+    }
+
+    /* Toast Notification */
+    .toast-notif {
+      position: fixed;
+      bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: var(--bg-card2);
+      border: 1px solid var(--accent2);
+      color: var(--accent2);
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
+      z-index: 200;
+    }
+    .toast-notif.active {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ─── RESPONSIVE ADJUSTMENTS ─────────────────────────── */
+    @media (max-width: 768px) {
+      .hero-stats { gap: 2rem; }
+      nav { padding: 0 4vw; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      section { padding: 80px 4vw; }
+      .floating-contact-btn { bottom: 16px; right: 16px; padding: 0.75rem 1.2rem; font-size: 0.8rem; }
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* Staggered animations for cards */
+    .project-card:nth-child(1) { transition-delay: 0.1s; }
+    .project-card:nth-child(2) { transition-delay: 0.2s; }
+    .project-card:nth-child(3) { transition-delay: 0.3s; }
+    .project-card:nth-child(4) { transition-delay: 0.4s; }
+    .project-card:nth-child(5) { transition-delay: 0.5s; }
+    .project-card:nth-child(6) { transition-delay: 0.6s; }
+
+    .skill-card:nth-child(1) { transition-delay: 0.1s; }
+    .skill-card:nth-child(2) { transition-delay: 0.15s; }
+    .skill-card:nth-child(3) { transition-delay: 0.2s; }
+    .skill-card:nth-child(4) { transition-delay: 0.25s; }
+    .skill-card:nth-child(5) { transition-delay: 0.3s; }
+    .skill-card:nth-child(6) { transition-delay: 0.35s; }
+  </style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS BAR -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Arieh<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#skills">Compétences</a></li>
+    <li><a href="#rigueur">Méthodologie</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a class="btn-nav-cta" href="#contact">Recruter</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+  <a href="#about" onclick="toggleMobileMenu()">À propos</a>
+  <a href="#skills" onclick="toggleMobileMenu()">Compétences</a>
+  <a href="#rigueur" onclick="toggleMobileMenu()">Méthodologie</a>
+  <a href="#projects" onclick="toggleMobileMenu()">Projets</a>
+  <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+  <a class="btn-nav-cta" href="#contact" onclick="toggleMobileMenu()">Recruter</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas class="hero-canvas" id="dots"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Data Analyst · Paris</div>
+    <div class="availability-badge">
+      <span class="availability-dot"></span>
+      Disponible pour freelance/CDI
+    </div>
+    <h1 class="hero-title">
+      Donner du sens et de<br>
+      <span class="highlight" id="typed-text">la fiabilité.</span><span class="cursor"></span>
+    </h1>
+    <p class="hero-desc">
+      Je m'appelle Arieh. Mon quotidien consiste à nettoyer des flux de données souvent chaotiques, écrire du SQL robuste et structurer des dashboards métiers clairs. Je suis persuadé qu'une analyse n'a d'impact que si les données sous-jacentes sont irréprochables.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="#projects">
+        Voir mes projets
+        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <a class="btn-ghost" href="https://github.com/AriehAllouche" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">3<span>+</span></div>
+        <div class="stat-label">Années d'expérience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1<span>SaaS</span></div>
+        <div class="stat-label">Lancé en production</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100<span>s</span></div>
+        <div class="stat-label">Datasets analysés</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span>6</span></div>
+        <div class="stat-label">Règles de qualité clés</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <div class="section-eyebrow">Ma Stack</div>
+    <h2 class="section-title">Compétences &amp; Console SQL</h2>
+    <p class="section-sub">Des outils maîtrisés pour transformer des données brutes en indicateurs fiables et actionnables.</p>
+  </div>
+  
+  <div class="skills-layout reveal">
+    <!-- Grid de barres de compétences -->
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Python</div>
+        <div class="skill-desc">Pandas, NumPy, GeoPandas, BeautifulSoup. Idéal pour manipuler des volumes et automatiser les pipelines d'extraction.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-name">SQL</div>
+        <div class="skill-desc">Jointures complexes, CTEs, fonctions de fenêtrage et requêtes optimisées pour interroger la donnée brute.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Power BI</div>
+        <div class="skill-desc">Modélisation en étoile, langage DAX (mesures temporelles complètes), et conception d'interfaces claires.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📈</div>
+        <div class="skill-name">Tableau</div>
+        <div class="skill-desc">Visualisations dynamiques, intégration spatiale et storytelling interactif pour le grand public.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🧹</div>
+        <div class="skill-name">Data Quality</div>
+        <div class="skill-desc">Validation systématique de schémas, détection d'anomalies de saisie et déduplication active.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🕸️</div>
+        <div class="skill-name">ETL / Scraping</div>
+        <div class="skill-desc">Récupération automatisée de données web complexes avec gestion active des blocs et de la structure HTML.</div>
+      </div>
+    </div>
+
+    <!-- SQL Console interactive -->
+    <div class="sql-sandbox">
+      <div class="sql-header">
+        <div class="sql-dots">
+          <div class="sql-dot red"></div>
+          <div class="sql-dot yellow"></div>
+          <div class="sql-dot green"></div>
+        </div>
+        <div class="sql-title">console_interactive_arieh.sql</div>
+      </div>
+      <div class="sql-body">
+        <div class="sql-prompt">
+          <span>SQL></span>
+          <span>Sélectionnez la requête à exécuter :</span>
+        </div>
+        <div class="sql-select-wrapper">
+          <button class="sql-btn active" onclick="setQuery(1, this)">SELECT * FROM profile;</button>
+          <button class="sql-btn" onclick="setQuery(2, this)">SELECT * FROM missions_pharma;</button>
+          <button class="sql-btn" onclick="setQuery(3, this)">SELECT * FROM data_quality_rules;</button>
+          <button class="sql-btn" onclick="setQuery(4, this)">SELECT * FROM metadata_map;</button>
+          <button class="sql-btn" onclick="setQuery(5, this)">SELECT * FROM data_privacy;</button>
+        </div>
+        <div class="sql-editor" id="sqlEditor">
+          SELECT * FROM profile;
+        </div>
+        <button class="sql-btn-run" onclick="runSqlQuery()">EXÉCUTER LA REQUÊTE</button>
+        
+        <div class="sql-output-area" id="sqlOutput">
+          <div class="sql-loading" id="sqlLoading">
+            <svg width="18" height="18" viewBox="0 0 38 38" stroke="#3B9EFF" style="animation: spin 1s linear infinite">
+              <g fill="none" fill-rule="evenodd">
+                <g transform="translate(1 1)" stroke-width="2">
+                  <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+                  <path d="M36 18c0-9.94-8.06-18-18-18"/>
+                </g>
+              </g>
+            </svg>
+            <span style="margin-left: 0.5rem">Exécution du plan de requête SQL...</span>
+          </div>
+          <div id="sqlResult">
+            <!-- Initial state -->
+            <table class="sql-table">
+              <thead>
+                <tr>
+                  <th>nom</th>
+                  <th>poste</th>
+                  <th>experience</th>
+                  <th>approche</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Arieh Allouche</td>
+                  <td>Data Analyst</td>
+                  <td>3+ ans</td>
+                  <td>La donnée doit être propre avant d'être belle.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW SECTION: RIGUEUR DATA, GOUVERNANCE & QUALITÉ -->
+<section id="rigueur">
+  <div class="reveal">
+    <div class="section-eyebrow">Qualité &amp; Gouvernance</div>
+    <h2 class="section-title">Ma Rigueur Data</h2>
+    <p class="section-sub">Au-delà du code, la garantie d'une donnée intègre, documentée et sécurisée.</p>
+  </div>
+  
+  <div class="rigueur-grid reveal">
+    <!-- Les 6 dimensions de la qualité -->
+    <div class="dq-list">
+      <h3 class="rigueur-box-title" style="border:none; padding-bottom:0">Les 6 dimensions de la Qualité</h3>
+      
+      <div class="dq-item">
+        <span class="dq-badge">01</span>
+        <div class="dq-title">Exactitude (Accuracy)</div>
+        <div class="dq-desc">Les données décrivent-elles fidèlement le monde réel ? <strong>Ma méthode :</strong> Je teste systématiquement les incohérences mathématiques évidentes (par exemple, des quantités négatives ou des paniers d'achat à 0€).</div>
+      </div>
+      
+      <div class="dq-item">
+        <span class="dq-badge">02</span>
+        <div class="dq-title">Complétude (Completeness)</div>
+        <div class="dq-desc">Manque-t-il des informations indispensables ? <strong>Ma méthode :</strong> Traitement rigoureux des valeurs manquantes (imputation logique ou filtrage documenté) au lieu d'ignorer passivement les valeurs nulles.</div>
+      </div>
+      
+      <div class="dq-item">
+        <span class="dq-badge">03</span>
+        <div class="dq-title">Cohérence (Consistency)</div>
+        <div class="dq-desc">Les données se contredisent-elles d'une table à l'autre ? <strong>Ma méthode :</strong> Contrôle des relations logiques inter-systèmes et maintien d'une intégrité de clés étrangères irréprochable.</div>
+      </div>
+      
+      <div class="dq-item">
+        <span class="dq-badge">04</span>
+        <div class="dq-title">Unicité (Uniqueness)</div>
+        <div class="dq-desc">Existe-t-il des doublons polluant les rapports ? <strong>Ma méthode :</strong> Utilisation de fonctions analytiques (telles que <code>ROW_NUMBER()</code> en SQL) pour isoler et dédupliquer activement les lignes d'événements.</div>
+      </div>
+      
+      <div class="dq-item">
+        <span class="dq-badge">05</span>
+        <div class="dq-title">Validité (Validity)</div>
+        <div class="dq-desc">La donnée respecte-t-elle les types et formats convenus ? <strong>Ma méthode :</strong> Validation en amont via expressions régulières (Regex) et schémas stricts (formats de dates ISO, codes postaux sur 5 caractères, etc.).</div>
+      </div>
+      
+      <div class="dq-item">
+        <span class="dq-badge">06</span>
+        <div class="dq-title">Fraîcheur (Timeliness)</div>
+        <div class="dq-desc">La donnée est-elle à jour au moment de la décision ? <strong>Ma méthode :</strong> Planification et supervision horaire des scripts d'extraction web et de chargement pour éviter tout retard d'actualisation.</div>
+      </div>
+    </div>
+
+    <!-- Métadonnées & RGPD -->
+    <div class="rigueur-right">
+      <!-- Cartographie et métadonnées -->
+      <div class="rigueur-box">
+        <h3 class="rigueur-box-title"><span>🗺️</span> Cartographie des Données</h3>
+        <div class="rigueur-box-text">
+          <p>
+            Pour qu'une donnée survive à la rotation des équipes, elle doit être parfaitement cartographiée. Je sépare systématiquement mes dictionnaires en deux couches :
+          </p>
+          <p style="margin-bottom: 0.5rem">
+            <strong>1. Métadonnées Fonctionnelles (Le Métier)</strong> :<br>
+            C'est la définition business de la donnée. Par exemple, documenter ce que signifie précisément la colonne "Panier Moyen" ou quelles sont les règles comptables de calcul de la "Marge Nette".
+          </p>
+          <p>
+            <strong>2. Métadonnées Techniques (Le Système)</strong> :<br>
+            C'est l'implémentation brute de la donnée. Par exemple, le type SQL de la colonne (<code>DECIMAL(10,2)</code>), le fait qu'elle n'accepte pas les valeurs nulles, et le lignage de données (data lineage) reliant sa table finale à son API source.
+          </p>
+        </div>
+      </div>
+
+      <!-- Excel Carousel -->
+      <div class="excel-carousel">
+        <button class="carousel-btn prev" onclick="moveCarousel(-1)">❮</button>
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide">
+            <img src="images/cartographie1.jpg" alt="Cartographie Excel 1">
+          </div>
+          <div class="carousel-slide">
+            <img src="images/cartographie2.jpg" alt="Cartographie Excel 2">
+          </div>
+          <div class="carousel-slide">
+            <img src="images/cartographie3.jpg" alt="Cartographie Excel 3">
+          </div>
+          <div class="carousel-slide">
+            <img src="images/cartographie4.jpg" alt="Cartographie Excel 4">
+          </div>
+        </div>
+        <button class="carousel-btn next" onclick="moveCarousel(1)">❯</button>
+        <div class="carousel-dots" id="carouselDots">
+          <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+          <div class="carousel-dot" onclick="goToSlide(1)"></div>
+          <div class="carousel-dot" onclick="goToSlide(2)"></div>
+          <div class="carousel-dot" onclick="goToSlide(3)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <div class="section-eyebrow">Réalisations</div>
+    <h2 class="section-title">Mes projets &amp; Études de Cas</h2>
+    <p class="section-sub">Des projets concrets, du code propre et de vraies problématiques résolues avec pragmatisme.</p>
+  </div>
+  
+  <div class="projects-grid">
+
+    <!-- PROJECT 0: SaaS MissionsPharma -->
+    <div class="project-card reveal" id="project-saas">
+      <div class="project-visual-wrapper">
+        <div class="project-visual-preview">
+          <img src="images/missionspharma.jpg" alt="MissionsPharma.pro" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">SaaS · React · Firebase · Stripe · RGPD</div>
+        <h3 class="project-title">MissionsPharma.pro (SaaS)</h3>
+        <p class="project-pitch">Une solution web complète en production pour aider les pharmaciens à réaliser et documenter leurs bilans de prévention de santé.</p>
+        
+        <!-- Storytelling Tabs -->
+        <div class="project-tabs-nav">
+          <button class="tab-trigger active" onclick="switchTab(this, 'prob')">Problématique</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'sol')">Solution</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'imp')">Impact</button>
+        </div>
+        <div class="project-tab-content">
+          <div class="tab-panel active" data-panel="prob">
+            Les pharmaciens d'officine se voient confier de nouvelles responsabilités de prévention nationale (bilans de santé), mais manquent d'un outil ergonomique, rapide et conforme pour saisir et stocker de manière sécurisée ces données.
+          </div>
+          <div class="tab-panel" data-panel="sol">
+            J'ai développé une SPA en <strong>React/Vite</strong> interfacée avec <strong>Firebase</strong>. J'ai configuré les abonnements avec l'API <strong>Stripe</strong> et codé un microservice en Node.js pour éditer automatiquement les rapports de synthèse PDF.
+          </div>
+          <div class="tab-panel" data-panel="imp">
+            Le SaaS est en production réelle. Les pharmaciens gagnent en moyenne 15 minutes par entretien grâce à la fluidité des questionnaires, tout en garantissant un archivage conforme à la réglementation des données de santé.
+          </div>
+        </div>
+        
+        <div class="project-tags">
+          <span class="tag tag-py" data-tooltip="Framework moderne utilisé pour concevoir une interface utilisateur réactive et fluide.">React</span>
+          <span class="tag tag-str" data-tooltip="Base de données et authentification temps réel facilitant la gestion de comptes.">Firebase</span>
+          <span class="tag tag-sql" data-tooltip="Intégration d'abonnements et de transactions de paiement pour monétiser l'outil.">Stripe API</span>
+        </div>
+        <div class="project-actions">
+          <a class="project-link" href="https://missionspharma.pro/" target="_blank" rel="noopener">
+            Visiter le site
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 1: Analyse Commerce Gourmet -->
+    <div class="project-card reveal" id="project-gourmet">
+      <div class="project-visual-wrapper">
+        <div class="project-visual-preview">
+          <img src="images/gourmet.jpg" alt="Analyse Commerce Gourmet" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Python · EDA · Marketing</div>
+        <h3 class="project-title">Analyse Commerce Gourmet</h3>
+        <p class="project-pitch">Exploration des tendances de ventes et segmentation cartographique des clients d'une épicerie fine.</p>
+        
+        <!-- Storytelling Tabs -->
+        <div class="project-tabs-nav">
+          <button class="tab-trigger active" onclick="switchTab(this, 'prob')">Problématique</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'sol')">Solution</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'imp')">Impact</button>
+        </div>
+        <div class="project-tab-content">
+          <div class="tab-panel active" data-panel="prob">
+            Le client stagnait commercialement sans réussir à identifier ses produits vedettes par saison, ni les départements géographiques concentrant sa clientèle la plus fortunée.
+          </div>
+          <div class="tab-panel" data-panel="sol">
+            J'ai nettoyé des tables brutes sales (correction de prix aberrants négatifs, déduplication de transactions). J'ai extrait les indices géospatiaux avec <strong>GeoPandas</strong> et construit des modèles de distribution avec <strong>Seaborn</strong>.
+          </div>
+          <div class="tab-panel" data-panel="imp">
+            J'ai mis en évidence 4 segments de clients distincts et tracé les zones géographiques sous-représentées en ventes, orientant ainsi les campagnes marketing directes de fin d'année.
+          </div>
+        </div>
+        
+        <div class="project-tags">
+          <span class="tag tag-py" data-tooltip="Langage principal utilisé pour la manipulation et la vectorisation rapide des calculs.">Python</span>
+          <span class="tag tag-py" data-tooltip="Bibliothèque fondamentale pour nettoyer, indexer et filtrer les jeux de données.">Pandas</span>
+          <span class="tag tag-py" data-tooltip="Utilisé pour la génération de graphiques statistiques et de matrices de corrélation.">Seaborn</span>
+          <span class="tag tag-py" data-tooltip="Permet de manipuler des données géographiques (fichiers shapefile) pour l'analyse spatiale.">GeoPandas</span>
+        </div>
+        <div class="project-actions">
+          <a class="project-link" href="https://github.com/AriehAllouche/Analyse_Commerce_Gourmet" target="_blank" rel="noopener">
+            Code source
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: Dashboard Ventes Power BI -->
+    <div class="project-card reveal" id="project-powerbi">
+      <div class="project-visual-wrapper">
+        <div class="project-visual-preview">
+          <img src="images/powerbi.jpg" alt="Dashboard Ventes Power BI" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Power BI · DAX · BI Dashboard</div>
+        <h3 class="project-title">Dashboard Ventes 2021–2023</h3>
+        <p class="project-pitch">Tableau de bord décisionnel de suivi des performances commerciales et comparaison temporelle N vs N-1.</p>
+        
+        <!-- Storytelling Tabs -->
+        <div class="project-tabs-nav">
+          <button class="tab-trigger active" onclick="switchTab(this, 'prob')">Problématique</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'sol')">Solution</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'imp')">Impact</button>
+        </div>
+        <div class="project-tab-content">
+          <div class="tab-panel active" data-panel="prob">
+            La direction passait un temps considérable à agréger manuellement des fichiers de facturation pour suivre l'évolution des marges par pays de 8 catégories de produits distinctes.
+          </div>
+          <div class="tab-panel" data-panel="sol">
+            J'ai modélisé les données en étoile (Star Schema) sous <strong>Power BI</strong> et écrit des formules temporelles complexes en <strong>DAX</strong> pour comparer à périmètre équivalent l'activité courante et celle de l'année passée (SAMEPERIODLASTYEAR).
+          </div>
+          <div class="tab-panel" data-panel="imp">
+            Le reporting hebdomadaire est entièrement automatisé. Les directeurs de filiales filtrent et comparent la rentabilité de leurs ventes en un clic.
+          </div>
+        </div>
+        
+        <div class="project-tags">
+          <span class="tag tag-bi" data-tooltip="Plateforme décisionnelle choisie pour la publication sécurisée de rapports.">Power BI</span>
+          <span class="tag tag-bi" data-tooltip="Langage analytique utilisé pour calculer des KPIs de ventes à la volée (CA, profits).">DAX</span>
+          <span class="tag tag-bi" data-tooltip="Modélisation optimisant la vitesse de chargement et facilitant la navigation métier.">Data Modeling</span>
+        </div>
+        <div class="project-actions">
+          <a class="project-link" href="https://github.com/AriehAllouche/Analyse_vente_power_bi" target="_blank" rel="noopener">
+            Dépôt GitHub
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3: Customer Segmentation -->
+    <div class="project-card reveal" id="project-segmentation">
+      <div class="project-visual-wrapper">
+        <div class="project-visual-preview">
+          <img src="images/segmentation.jpg" alt="Customer Segmentation" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Python · Machine Learning · RFM</div>
+        <h3 class="project-title">E-commerce Customer Segmentation</h3>
+        <p class="project-pitch">Classification non-supervisée des comportements d'achat pour optimiser les campagnes d'emailing.</p>
+        
+        <!-- Storytelling Tabs -->
+        <div class="project-tabs-nav">
+          <button class="tab-trigger active" onclick="switchTab(this, 'prob')">Problématique</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'sol')">Solution</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'imp')">Impact</button>
+        </div>
+        <div class="project-tab-content">
+          <div class="tab-panel active" data-panel="prob">
+            La newsletter générale affichait un fort taux de désinscription car elle envoyait les mêmes promotions aux clients très engagés qu'aux acheteurs ponctuels inactifs.
+          </div>
+          <div class="tab-panel" data-panel="sol">
+            J'ai agrégé la base sous Python pour calculer les scores de Récence, Fréquence, Montant (RFM). Après normalisation, j'ai appliqué un algorithme <strong>K-Means</strong> (Scikit-Learn) en justifiant le nombre de classes par la méthode du coude.
+          </div>
+          <div class="tab-panel" data-panel="imp">
+            Création de 4 profils types d'acheteurs. La mise en place de campagnes d'emailing automatisées et ciblées sur ces segments a permis de baisser les désinscriptions de 15%.
+          </div>
+        </div>
+        
+        <div class="project-tags">
+          <span class="tag tag-py" data-tooltip="Langage principal de traitement de données et d'entraînement du modèle.">Python</span>
+          <span class="tag tag-py" data-tooltip="Bibliothèque d'algorithmes statistiques pour exécuter le clustering.">Scikit-Learn</span>
+          <span class="tag tag-gen" data-tooltip="Modèle d'analyse de valeur client basé sur le comportement transactionnel historique.">RFM Model</span>
+          <span class="tag tag-gen" data-tooltip="Algorithme d'apprentissage non-supervisé pour regrouper les données en grappes cohérentes.">K-Means</span>
+        </div>
+        <div class="project-actions">
+          <a class="project-link" href="https://github.com/AriehAllouche/ecommerce-customer-segmentation" target="_blank" rel="noopener">
+            Code source
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4: Tableau data.gouv.fr JO -->
+    <div class="project-card reveal" id="project-tableau-jo">
+      <div class="project-visual-wrapper">
+        <div class="project-visual-preview">
+          <img src="images/jo.jpg" alt="JO & Trésors Français" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Tableau · Storytelling · Open Data</div>
+        <h3 class="project-title">JO &amp; Trésors Français</h3>
+        <p class="project-pitch">Conception d'une carte interactive reliant l'implantation historique des musées nationaux aux exploits des médaillés français aux JO.</p>
+        
+        <!-- Storytelling Tabs -->
+        <div class="project-tabs-nav">
+          <button class="tab-trigger active" onclick="switchTab(this, 'prob')">Problématique</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'sol')">Solution</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'imp')">Impact</button>
+        </div>
+        <div class="project-tab-content">
+          <div class="tab-panel active" data-panel="prob">
+            Les fichiers CSV d'Open Data du gouvernement français sur le patrimoine culturel sont riches mais souvent complexes et peu engageants à lire pour le grand public.
+          </div>
+          <div class="tab-panel" data-panel="sol">
+            J'ai croisé et nettoyé les données géographiques des sites d'art nationaux avec l'historique des athlètes tricolores primés aux JO d'été, créant un récit fluide basé sur des cartes interactives sous <strong>Tableau</strong>.
+          </div>
+          <div class="tab-panel" data-panel="imp">
+            Mon travail a été labellisé et mis en avant par l'État français comme "Réutilisation officielle" sur le portail open data national <strong>data.gouv.fr</strong>.
+          </div>
+        </div>
+        
+        <div class="project-tags">
+          <span class="tag tag-tab" data-tooltip="Outil de visualisation interactif pour créer le tableau de bord final.">Tableau</span>
+          <span class="tag tag-gen" data-tooltip="Techniques de narration visuelle pour capter l'intérêt d'un public non technique.">Storytelling</span>
+          <span class="tag tag-sql" data-tooltip="Données en libre accès provenant des plateformes gouvernementales officielles.">Open Data</span>
+        </div>
+        <div class="project-actions">
+          <a class="project-link" href="https://www.data.gouv.fr/reuses/a-la-decouverte-des-jo-et-des-tresors-francais-une-exploration-interactive" target="_blank" rel="noopener">
+            Voir sur data.gouv.fr
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 5: Web Scraping Player Data -->
+    <div class="project-card reveal" id="project-scraping">
+      <div class="project-visual-wrapper">
+        <div class="project-visual-preview">
+          <img src="images/scraping.jpg" alt="Scraping Joueurs Football" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Python · BeautifulSoup · ETL</div>
+        <h3 class="project-title">Scraping Joueurs Football — Transfermarkt</h3>
+        <p class="project-pitch">Conception d'un extracteur automatique résistant aux blocages pour archiver l'historique des valeurs marchandes des joueurs.</p>
+        
+        <!-- Storytelling Tabs -->
+        <div class="project-tabs-nav">
+          <button class="tab-trigger active" onclick="switchTab(this, 'prob')">Problématique</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'sol')">Solution</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'imp')">Impact</button>
+        </div>
+        <div class="project-tab-content">
+          <div class="tab-panel active" data-panel="prob">
+            Le site Transfermarkt met régulièrement à jour les statistiques de milliers de joueurs mais utilise des règles strictes de limitation de requêtes (rate limiting) pour bloquer les robots de scraping.
+          </div>
+          <div class="tab-panel" data-panel="sol">
+            J'ai écrit un script d'extraction robuste en <strong>Python</strong> incorporant des rotations d'entêtes HTTP (User-Agent), l'utilisation intelligente de proxies et des délais d'attente dynamiques. Parsing de la structure DOM avec <strong>BeautifulSoup</strong>.
+          </div>
+          <div class="tab-panel" data-panel="imp">
+            J'ai généré un fichier CSV propre indexant plus de 5 000 sportifs, mis à jour sans aucun blocage d'adresse IP et directement prêt pour de la modélisation prédictive de prix.
+          </div>
+        </div>
+        
+        <div class="project-tags">
+          <span class="tag tag-py" data-tooltip="Langage de script puissant pour l'automatisation de tâches d'extraction web.">Python</span>
+          <span class="tag tag-py" data-tooltip="Parser HTML permettant d'analyser la structure DOM et d'en extraire les informations clés.">BeautifulSoup</span>
+          <span class="tag tag-gen" data-tooltip="Flux global d'intégration : Extraction depuis le web, Transformation, et Chargement en CSV.">ETL Pipeline</span>
+        </div>
+        <div class="project-actions">
+          <span class="project-link" style="color:var(--text-lo); cursor: not-allowed">
+            Dépôt Privé (Bientôt disponible sur GitHub)
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-eyebrow">Mon Parcours</div>
+    <h2 class="section-title">À propos de moi</h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>
+        Je m'appelle <strong>Arieh Allouche</strong>. Data Analyst basé à Paris, je me passionne pour la résolution de problèmes par le prisme de la donnée de qualité.
+      </p>
+      <p>
+        Mon crédo : <strong>une mauvaise donnée produira toujours un mauvais graphique.</strong> C'est pourquoi j'attache autant d'importance aux règles de validation en amont qu'aux interfaces visuelles finales. Je cherche avant tout à concevoir des outils de suivi automatisés qui font gagner du temps aux équipes sur le terrain.
+      </p>
+      <p>
+        Au-delà de mes projets d'analyses classiques, la création en conditions réelles de mon SaaS <strong>MissionsPharma.pro</strong> m'a appris à gérer des modèles de données complexes, à comprendre l'importance critique de la conformité RGPD, et à aligner le code technique sur des besoins métiers stricts.
+      </p>
+      <p style="margin-top:2rem">
+        <a class="btn-primary" href="https://github.com/AriehAllouche" target="_blank" rel="noopener">
+          Mon GitHub
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </p>
+    </div>
+    <div class="about-right">
+      <div class="about-card">
+        <div class="about-card-icon">🎯</div>
+        <div>
+          <div class="about-card-title">Qualité &amp; Cohérence</div>
+          <div class="about-card-sub">Application stricte de tests d'intégrité et de nettoyage pour garantir la véracité des chiffres.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">⚡</div>
+        <div>
+          <div class="about-card-title">Automatisation</div>
+          <div class="about-card-sub">Scripts Python et ordonnanceurs légers pour éliminer les copier-coller hebdomadaires d'Excel.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">💼</div>
+        <div>
+          <div class="about-card-title">SaaS &amp; Vision Produit</div>
+          <div class="about-card-sub">Expérience concrète de mise en production d'une application pour pharmaciens.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🗺️</div>
+        <div>
+          <div class="about-card-title">Sécurité des Données</div>
+          <div class="about-card-sub">Sensibilité aux normes RGPD, à la pseudonymisation et aux structures de chiffrement.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-box reveal">
+    <div class="section-eyebrow" style="justify-content:center">Contact</div>
+    <h2 class="section-title">Travaillons ensemble</h2>
+    <p class="section-sub">
+      Un projet data, un dashboard Power BI complexe à concevoir ou un besoin d'automatisation ? N'hésitez pas à me contacter.
+    </p>
+    <div class="contact-links">
+      <button class="btn-primary" onclick="openContactModal()">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="margin-right:0.2rem"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        M'écrire un message
+      </button>
+      <a class="btn-ghost" href="cv.pdf" target="_blank" rel="noopener" download>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="margin-right:0.2rem"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        Télécharger CV
+      </a>
+      <a class="btn-ghost" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Arieh Allouche — Data Analyst</span>
+  <span>Bâti sur une stack robuste SQL &amp; Python</span>
+</footer>
+
+<!-- FLOATING CONTACT TRIGGER -->
+<button class="floating-contact-btn" onclick="openContactModal()">
+  Discutons Data 📊
+</button>
+
+<!-- BACK TO TOP BUTTON -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z"/></svg>
+</button>
+
+<!-- CONTACT MODAL -->
+<div class="contact-modal-overlay" id="contactModalOverlay" onclick="closeContactModalOnOutsideClick(event)">
+  <div class="contact-modal">
+    <button class="modal-close-btn" onclick="closeContactModal()">✕</button>
+    <h3 class="modal-title">Entrons en <span>contact</span></h3>
+    <p class="modal-desc">Opportunité de poste, mission freelance ou simple question technique ? Je vous répondrai sous 24 heures.</p>
+    
+    <div class="modal-email-box">
+      <span class="modal-email-text" id="emailText">arieh.data@gmail.com</span>
+      <button class="modal-copy-btn" onclick="copyEmailToClipboard()" id="copyBtn">Copier</button>
+    </div>
+    
+    <div class="modal-links">
+      <a class="modal-link-btn" href="mailto:arieh.data@gmail.com">
+        📥 Écrire un e-mail
+      </a>
+      <a class="modal-link-btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener">
+        💼 LinkedIn
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast-notif" id="toastNotif">
+  Adresse e-mail copiée avec succès ! 🚀
+</div>
+
+<script>
+  /* ─── CANVAS PARTICLE BACKGROUND (INTERACTIVE MOUSE EFFECT + PARALLAX) ─ */
+  const canvas = document.getElementById('dots');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  const mouse = { x: null, y: null, radius: 110 };
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function Particle() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.25;
+    this.vy = (Math.random() - 0.5) * 0.25;
+    this.r = Math.random() * 1.5 + 0.6;
+    this.alpha = Math.random() * 0.45 + 0.15;
+    this.baseX = this.x;
+    this.baseY = this.y;
+    this.depth = Math.random() * 0.5 + 0.5; // Parallax depth factor
+  }
+
+  function initParticles() {
+    particles = [];
+    const n = Math.floor((W * H) / 11000);
+    for (let i = 0; i < n; i++) particles.push(new Particle());
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    
+    // Parallax effect based on scroll
+    const scrollY = window.scrollY;
+    const parallaxOffset = scrollY * 0.3;
+    
+    // Draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 110) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(59,158,255,${0.07 * (1 - dist/110)})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    
+    // Draw and update dots with parallax
+    particles.forEach(p => {
+      // Parallax movement
+      const parallaxY = parallaxOffset * p.depth;
+      
+      // Repulsion force from mouse
+      if (mouse.x !== null && mouse.y !== null) {
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          const angle = Math.atan2(dy, dx);
+          p.x += Math.cos(angle) * force * 1.5;
+          p.y += Math.sin(angle) * force * 1.5;
+        }
+      }
+
+      p.x += p.vx; 
+      p.y += p.vy + (parallaxY - p.baseY) * 0.02; // Subtle parallax drift
+      
+      // Boundary collision
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+      
+      ctx.beginPath();
+      ctx.arc(p.x, p.y + parallaxY * 0.1, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(59,158,255,${p.alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  initParticles();
+  draw();
+  
+  window.addEventListener('resize', () => { resize(); initParticles(); });
+  
+  // Mouse movement listener on canvas parent
+  document.getElementById('hero').addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  
+  document.getElementById('hero').addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  /* ─── TYPED TEXT ─────────────────────────────────────── */
+  const words = ['la fiabilité.', 'la clarté.', 'des opportunités.', 'la rigueur.'];
+  let wi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typed-text');
+
+  function typeEffect() {
+    const word = words[wi];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { deleting = true; setTimeout(typeEffect, 1800); return; }
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
+    }
+    setTimeout(typeEffect, deleting ? 50 : 90);
+  }
+  setTimeout(typeEffect, 800);
+
+  /* ─── SCROLL REVEAL ──────────────────────────────────── */
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.dataset.w + '%';
+        });
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => obs.observe(r));
+
+  /* ─── PROJECT STORYTELLING TABS ───────────────────────── */
+  function switchTab(button, tabName) {
+    const card = button.closest('.project-card');
+    
+    // Deactivate current tabs
+    card.querySelectorAll('.tab-trigger').forEach(btn => btn.classList.remove('active'));
+    card.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+    
+    // Activate clicked tab
+    button.classList.add('active');
+    const targetPanel = card.querySelector(`.tab-panel[data-panel="${tabName}"]`);
+    if (targetPanel) {
+      targetPanel.classList.add('active');
+    }
+  }
+
+  /* ─── SQL CONSOLE PLAYGROUND ─────────────────────────── */
+  let activeQueryId = 1;
+  const queriesContent = {
+    1: "SELECT * FROM profile;",
+    2: "SELECT * FROM missions_pharma;",
+    3: "SELECT * FROM data_quality_rules;",
+    4: "SELECT * FROM metadata_map;",
+    5: "SELECT * FROM data_privacy;"
+  };
+
+  const queryOutputs = {
+    1: `<table class="sql-table">
+          <thead>
+            <tr>
+              <th>nom</th>
+              <th>poste</th>
+              <th>experience</th>
+              <th>philosophie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Arieh Allouche</td>
+              <td>Data Analyst</td>
+              <td>3+ ans</td>
+              <td>La donnée doit être propre avant d'être belle.</td>
+            </tr>
+          </tbody>
+        </table>`,
+    2: `<table class="sql-table">
+          <thead>
+            <tr>
+              <th>produit</th>
+              <th>utilisateurs</th>
+              <th>technologies</th>
+              <th>securite</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MissionsPharma.pro</td>
+              <td>Pharmaciens d'officine</td>
+              <td>React, Vite, Node, Firebase</td>
+              <td>Conformité RGPD / Hébergement Données de Santé</td>
+            </tr>
+          </tbody>
+        </table>`,
+    3: `<table class="sql-table">
+          <thead>
+            <tr>
+              <th>dimension</th>
+              <th>description</th>
+              <th>application_pratique</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Exactitude</td>
+              <td>Données fidèles au réel</td>
+              <td>Filtres SQL/Python sur valeurs aberrantes</td>
+            </tr>
+            <tr>
+              <td>Complétude</td>
+              <td>Pas de données manquantes</td>
+              <td>Imputation logique ou rejet des NULL critiques</td>
+            </tr>
+            <tr>
+              <td>Cohérence</td>
+              <td>Pas de contradiction inter-systèmes</td>
+              <td>Contraintes d'intégrité référentielle fortes</td>
+            </tr>
+            <tr>
+              <td>Unicité</td>
+              <td>Aucun doublon en base</td>
+              <td>ROW_NUMBER() et déduplication automatique</td>
+            </tr>
+            <tr>
+              <td>Validité</td>
+              <td>Format et règles métiers respectés</td>
+              <td>Validation par Regex et typage strict</td>
+            </tr>
+            <tr>
+              <td>Fraîcheur</td>
+              <td>Donnée disponible à temps</td>
+              <td>Planification horaire des pipelines d'extraction</td>
+            </tr>
+          </tbody>
+        </table>`,
+    4: `<table class="sql-table">
+          <thead>
+            <tr>
+              <th>type_metadata</th>
+              <th>description</th>
+              <th>exemple_concret</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fonctionnelle</td>
+              <td>Définition métier business</td>
+              <td>Glossaire définissant la règle de calcul de la "Marge Nette"</td>
+            </tr>
+            <tr>
+              <td>Technique</td>
+              <td>Structure et lignage système</td>
+              <td>Format DECIMAL(10,2), contrainte NOT NULL, lignage source</td>
+            </tr>
+          </tbody>
+        </table>`,
+    5: `<table class="sql-table">
+          <thead>
+            <tr>
+              <th>strategie</th>
+              <th>description</th>
+              <th>objectif</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pseudonymisation</td>
+              <td>Séparation des identifiants et données de santé</td>
+              <td>Garantie d'anonymat en base opérationnelle</td>
+            </tr>
+            <tr>
+              <td>Chiffrement</td>
+              <td>Chiffrement de transit et au repos (AES-256)</td>
+              <td>Protection en cas de vol physique ou interception</td>
+            </tr>
+            <tr>
+              <td>Contrôle d'accès</td>
+              <td>Habilitations basées sur les rôles (RBAC)</td>
+              <td>Seul le soignant habilité peut consulter la donnée</td>
+            </tr>
+          </tbody>
+        </table>`
+  };
+
+  function setQuery(queryId, buttonElement) {
+    const buttons = buttonElement.parentElement.querySelectorAll('.sql-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    buttonElement.classList.add('active');
+    
+    activeQueryId = queryId;
+    document.getElementById('sqlEditor').innerText = queriesContent[queryId];
+  }
+
+  function runSqlQuery() {
+    const loading = document.getElementById('sqlLoading');
+    const result = document.getElementById('sqlResult');
+    
+    result.style.opacity = '0.3';
+    loading.style.display = 'flex';
+    
+    setTimeout(() => {
+      loading.style.display = 'none';
+      result.innerHTML = queryOutputs[activeQueryId];
+      result.style.opacity = '1';
+    }, 600);
+  }
+
+  /* ─── MOBILE MENU ─────────────────────────────────────── */
+  function toggleMobileMenu() {
+    const overlay = document.getElementById('mobileMenuOverlay');
+    const btn = document.querySelector('.mobile-menu-btn');
+    overlay.classList.toggle('active');
+    btn.classList.toggle('active');
+    document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+  }
+
+  /* ─── BACK TO TOP BUTTON ─────────────────────────────── */
+  const backToTopBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  });
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ─── SCROLL PROGRESS BAR ───────────────────────────── */
+  const scrollProgress = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    scrollProgress.style.width = scrollPercent + '%';
+  });
+
+  /* ─── EXCEL CAROUSEL ─────────────────────────────────── */
+  let currentSlide = 0;
+  const totalSlides = 4;
+
+  function moveCarousel(direction) {
+    currentSlide += direction;
+    if (currentSlide < 0) currentSlide = totalSlides - 1;
+    if (currentSlide >= totalSlides) currentSlide = 0;
+    updateCarousel();
+  }
+
+  function goToSlide(index) {
+    currentSlide = index;
+    updateCarousel();
+  }
+
+  function updateCarousel() {
+    const track = document.getElementById('carouselTrack');
+    const dots = document.querySelectorAll('.carousel-dot');
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentSlide);
+    });
+  }
+
+  /* ─── CONTACT MODAL & COPY FUNCTION ───────────────────── */
+  const modal = document.getElementById('contactModalOverlay');
+  const toast = document.getElementById('toastNotif');
+
+  function openContactModal() {
+    modal.classList.add('active');
+  }
+
+  function closeContactModal() {
+    modal.classList.remove('active');
+  }
+
+  function closeContactModalOnOutsideClick(event) {
+    if (event.target === modal) {
+      closeContactModal();
+    }
+  }
+
+  function copyEmailToClipboard() {
+    const email = document.getElementById('emailText').innerText;
+    navigator.clipboard.writeText(email).then(() => {
+      const copyBtn = document.getElementById('copyBtn');
+      copyBtn.innerText = "Copié !";
+      copyBtn.style.background = "#10B981";
+      
+      // Trigger Toast
+      toast.classList.add('active');
+      
+      setTimeout(() => {
+        copyBtn.innerText = "Copier";
+        copyBtn.style.background = "var(--accent)";
+      }, 2000);
+      
+      setTimeout(() => {
+        toast.classList.remove('active');
+      }, 3500);
+    });
+  }
+</script>
+</body>
+</html>
