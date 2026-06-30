@@ -41,17 +41,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
-    /* ─── SCROLL PROGRESS BAR ──────────────────────────── */
-    .scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      z-index: 1000;
-      transition: width 0.1s ease;
-    }
     body {
       background: var(--bg);
       color: var(--text-hi);
@@ -661,6 +650,10 @@
       object-fit: contain;
       border-radius: 6px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .carousel-slide img:hover {
+      transform: scale(1.05);
     }
     .carousel-btn {
       position: absolute;
@@ -761,9 +754,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
-    .project-card:hover .project-visual-preview {
-      transform: scale(1.06);
+    .project-visual-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover .project-visual-preview img {
+      transform: scale(1.08);
     }
 
     /* Project body content */
@@ -891,12 +891,8 @@
     /* ─── ABOUT ──────────────────────────────────────────── */
     #about { background: var(--bg-card); }
     .about-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 4rem;
-      align-items: start;
+      max-width: 760px;
     }
-    @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
     .about-text p {
       color: var(--text-mid);
       font-size: 1rem;
@@ -904,28 +900,6 @@
       margin-bottom: 1.25rem;
     }
     .about-text p strong { color: var(--text-hi); }
-    .about-right { display: flex; flex-direction: column; gap: 1rem; }
-    .about-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.4rem 1.6rem;
-      display: flex; align-items: flex-start; gap: 1.2rem;
-      transition: var(--transition);
-    }
-    .about-card:hover {
-      border-color: var(--accent);
-      transform: translateX(4px);
-    }
-    .about-card-icon { font-size: 1.6rem; flex-shrink: 0; }
-    .about-card-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--text-hi);
-      margin-bottom: 0.25rem;
-    }
-    .about-card-sub { font-size: 0.84rem; color: var(--text-mid); }
 
     /* ─── CONTACT ────────────────────────────────────────── */
     #contact {
@@ -957,37 +931,6 @@
     }
     footer a { color: var(--text-lo); text-decoration: none; transition: var(--transition); }
     footer a:hover { color: var(--accent); }
-
-    /* ─── FLOATING CONTACT BADGE & MODAL ─────────────────── */
-    .floating-contact-btn {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 90;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border: none;
-      border-radius: 50px;
-      padding: 0.85rem 1.4rem;
-      color: #0A0E1A;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      box-shadow: 0 8px 30px rgba(59, 158, 255, 0.4);
-      transition: var(--transition);
-      animation: pulseGlow 2s infinite alternate;
-    }
-    .floating-contact-btn:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 12px 35px rgba(59, 158, 255, 0.55);
-    }
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 4px 15px rgba(59, 158, 255, 0.3); }
-      100% { box-shadow: 0 10px 30px rgba(59, 158, 255, 0.5); }
-    }
 
     /* Back to Top Button */
     .back-to-top {
@@ -1176,7 +1119,6 @@
       .nav-links { display: none; }
       .mobile-menu-btn { display: block; }
       section { padding: 80px 4vw; }
-      .floating-contact-btn { bottom: 16px; right: 16px; padding: 0.75rem 1.2rem; font-size: 0.8rem; }
     }
 
     /* ─── SCROLL REVEAL ──────────────────────────────────── */
@@ -1200,9 +1142,6 @@
   </style>
 </head>
 <body>
-
-<!-- SCROLL PROGRESS BAR -->
-<div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- NAV -->
 <nav>
@@ -1246,7 +1185,7 @@
       <span class="highlight" id="typed-text">la fiabilité.</span><span class="cursor"></span>
     </h1>
     <p class="hero-desc">
-      Je m'appelle Arieh. Mon quotidien consiste à nettoyer des flux de données souvent chaotiques, écrire du SQL robuste et structurer des dashboards métiers clairs. Je suis persuadé qu'une analyse n'a d'impact que si les données sous-jacentes sont irréprochables.
+      Je m'appelle Arieh. Diplômé d'un Master Data, j'ai passé les dernières années à nettoyer des bases qui font peur, écrire du SQL qui tient la route et construire des dashboards que les équipes utilisent vraiment — pas juste le jour de la démo. J'ai aussi lancé seul un SaaS pour pharmaciens, de l'idée jusqu'aux premiers clients payants. C'est cette expérience qui m'a appris qu'une bonne analyse commence toujours par une donnée propre.
     </p>
     <div class="hero-ctas">
       <a class="btn-primary" href="#projects">
@@ -1264,11 +1203,11 @@
         <div class="stat-label">Années d'expérience</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">1<span> SaaS</span></div>
+        <div class="stat-num">1<span>SaaS</span></div>
         <div class="stat-label">Lancé en production</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">+ 100<span></span></div>
+        <div class="stat-num">100<span>s</span></div>
         <div class="stat-label">Datasets analysés</div>
       </div>
       <div class="stat-item">
@@ -1343,6 +1282,7 @@
           <button class="sql-btn" onclick="setQuery(3, this)">SELECT * FROM data_quality_rules;</button>
           <button class="sql-btn" onclick="setQuery(4, this)">SELECT * FROM metadata_map;</button>
           <button class="sql-btn" onclick="setQuery(5, this)">SELECT * FROM data_privacy;</button>
+          <button class="sql-btn" onclick="setQuery(6, this)">SELECT * FROM vraie_vie;</button>
         </div>
         <div class="sql-editor" id="sqlEditor">
           SELECT * FROM profile;
@@ -1501,7 +1441,7 @@
     <div class="project-card reveal" id="project-saas">
       <div class="project-visual-wrapper">
         <div class="project-visual-preview">
-          <img src="images/missionspharma.jpg" alt="MissionsPharma.pro" style="width:100%; height:100%; object-fit:contain;">
+          <img src="images/missionspharma.jpg" alt="MissionsPharma.pro" style="width:100%; height:100%; object-fit:cover;">
         </div>
       </div>
       <div class="project-body">
@@ -1545,7 +1485,7 @@
     <div class="project-card reveal" id="project-gourmet">
       <div class="project-visual-wrapper">
         <div class="project-visual-preview">
-          <img src="images/gourmet.jpg" alt="Analyse Commerce Gourmet" style="width:100%; height:100%; object-fit:contain;">
+          <img src="images/gourmet.jpg" alt="Analyse Commerce Gourmet" style="width:100%; height:100%; object-fit:cover;">
         </div>
       </div>
       <div class="project-body">
@@ -1590,7 +1530,7 @@
     <div class="project-card reveal" id="project-powerbi">
       <div class="project-visual-wrapper">
         <div class="project-visual-preview">
-          <img src="images/powerbi.jpg" alt="Dashboard Ventes Power BI" style="width:100%; height:100%; object-fit:contain;">
+          <img src="images/powerbi.jpg" alt="Dashboard Ventes Power BI" style="width:100%; height:100%; object-fit:cover;">
         </div>
       </div>
       <div class="project-body">
@@ -1634,7 +1574,7 @@
     <div class="project-card reveal" id="project-segmentation">
       <div class="project-visual-wrapper">
         <div class="project-visual-preview">
-          <img src="images/segmentation.jpg" alt="Customer Segmentation" style="width:100%; height:100%; object-fit:contain;">
+          <img src="images/segmentation.jpg" alt="Customer Segmentation" style="width:100%; height:100%; object-fit:cover;">
         </div>
       </div>
       <div class="project-body">
@@ -1679,7 +1619,7 @@
     <div class="project-card reveal" id="project-tableau-jo">
       <div class="project-visual-wrapper">
         <div class="project-visual-preview">
-          <img src="images/jo.jpg" alt="JO & Trésors Français" style="width:100%; height:100%; object-fit:contain;">
+          <img src="images/jo.jpg" alt="JO & Trésors Français" style="width:100%; height:100%; object-fit:cover;">
         </div>
       </div>
       <div class="project-body">
@@ -1723,7 +1663,7 @@
     <div class="project-card reveal" id="project-scraping">
       <div class="project-visual-wrapper">
         <div class="project-visual-preview">
-          <img src="images/scraping.jpg" alt="Scraping Joueurs Football" style="width:100%; height:100%; object-fit:contain;">
+          <img src="images/scraping.jpg" alt="Scraping Joueurs Football" style="width:100%; height:100%; object-fit:cover;">
         </div>
       </div>
       <div class="project-body">
@@ -1774,13 +1714,16 @@
   <div class="about-grid reveal">
     <div class="about-text">
       <p>
-        Je m'appelle <strong>Arieh Allouche</strong>. Data Analyst basé à Paris, je me passionne pour la résolution de problèmes par le prisme de la donnée de qualité.
+        Je m'appelle <strong>Arieh Allouche</strong>. Data Analyst basé à Paris, diplômé d'un Master en Data. Depuis mes études, une conviction ne m'a jamais quitté : <strong>une mauvaise donnée produira toujours un mauvais graphique</strong>, peu importe le soin qu'on met sur le dashboard final. C'est pour ça que je passe autant de temps sur les règles de validation en amont que sur les visualisations qu'on présente aux équipes.
       </p>
       <p>
-        Mon crédo : <strong>une mauvaise donnée produira toujours un mauvais graphique.</strong> C'est pourquoi j'attache autant d'importance aux règles de validation en amont qu'aux interfaces visuelles finales. Je cherche avant tout à concevoir des outils de suivi automatisés qui font gagner du temps aux équipes sur le terrain.
+        Le projet dont je suis le plus fier, c'est <strong>MissionsPharma.pro</strong>, un SaaS que j'ai conçu et codé seul pour aider les pharmaciens d'officine à réaliser et documenter leurs bilans de prévention santé. Aujourd'hui il compte ses premiers utilisateurs réels — pas énorme, mais chacun est passé par une vraie démo, une vraie objection, et une vraie décision d'utiliser l'outil au quotidien. La partie technique (modèle de données, conformité RGPD santé) n'a finalement pas été la plus dure : convaincre les premiers pharmaciens de me faire confiance, ça, ça m'a appris bien plus que n'importe quel cours.
       </p>
       <p>
-        Au-delà de mes projets d'analyses classiques, la création en conditions réelles de mon SaaS <strong>MissionsPharma.pro</strong> m'a appris à gérer des modèles de données complexes, à comprendre l'importance critique de la conformité RGPD, et à aligner le code technique sur des besoins métiers stricts.
+        Cette double casquette — rigueur technique côté data, et confrontation directe au besoin terrain côté produit — c'est ce que j'essaie d'apporter sur chaque mission : pas juste un dashboard qui a l'air propre, mais un outil que les gens utilisent vraiment.
+      </p>
+      <p>
+        Hors écran, je suis plutôt du genre à ne jamais refuser un babyfoot ou une partie de ping-pong à la pause déjeuner — et je regarde le foot avec un peu trop d'attention pour quelqu'un censé être objectif avec les chiffres. Ça n'a rien à voir avec la data, mais ça aide à savoir avec qui on a envie de bosser au quotidien.
       </p>
       <p style="margin-top:2rem">
         <a class="btn-primary" href="https://github.com/AriehAllouche" target="_blank" rel="noopener">
@@ -1788,36 +1731,6 @@
           <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
       </p>
-    </div>
-    <div class="about-right">
-      <div class="about-card">
-        <div class="about-card-icon">🎯</div>
-        <div>
-          <div class="about-card-title">Qualité &amp; Cohérence</div>
-          <div class="about-card-sub">Application stricte de tests d'intégrité et de nettoyage pour garantir la véracité des chiffres.</div>
-        </div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon">⚡</div>
-        <div>
-          <div class="about-card-title">Automatisation</div>
-          <div class="about-card-sub">Scripts Python et ordonnanceurs légers pour éliminer les copier-coller hebdomadaires d'Excel.</div>
-        </div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon">💼</div>
-        <div>
-          <div class="about-card-title">SaaS &amp; Vision Produit</div>
-          <div class="about-card-sub">Expérience concrète de mise en production d'une application pour pharmaciens.</div>
-        </div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon">🗺️</div>
-        <div>
-          <div class="about-card-title">Sécurité des Données</div>
-          <div class="about-card-sub">Sensibilité aux normes RGPD, à la pseudonymisation et aux structures de chiffrement.</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1850,13 +1763,8 @@
 <!-- FOOTER -->
 <footer>
   <span>© 2026 Arieh Allouche — Data Analyst</span>
-  <span>Bâti sur une stack robuste SQL &amp; Python</span>
+  <a href="#contact">Me contacter</a>
 </footer>
-
-<!-- FLOATING CONTACT TRIGGER -->
-<button class="floating-contact-btn" onclick="openContactModal()">
-  Discutons Data 📊
-</button>
 
 <!-- BACK TO TOP BUTTON -->
 <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
@@ -2051,7 +1959,8 @@
     2: "SELECT * FROM missions_pharma;",
     3: "SELECT * FROM data_quality_rules;",
     4: "SELECT * FROM metadata_map;",
-    5: "SELECT * FROM data_privacy;"
+    5: "SELECT * FROM data_privacy;",
+    6: "SELECT * FROM vraie_vie;"
   };
 
   const queryOutputs = {
@@ -2178,6 +2087,37 @@
               <td>Seul le soignant habilité peut consulter la donnée</td>
             </tr>
           </tbody>
+        </table>`,
+    6: `<table class="sql-table">
+          <thead>
+            <tr>
+              <th>indicateur</th>
+              <th>valeur</th>
+              <th>commentaire</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>cafés_consommés_par_jour</td>
+              <td>4</td>
+              <td>5 les jours de deadline</td>
+            </tr>
+            <tr>
+              <td>temps_passé_a_nettoyer_le_dataset</td>
+              <td>70%</td>
+              <td>contre 30% pour le modèle, comme tout le monde</td>
+            </tr>
+            <tr>
+              <td>jointures_ratées_avant_de_trouver_le_bug</td>
+              <td>3</td>
+              <td>c'était une clé dupliquée, évidemment</td>
+            </tr>
+            <tr>
+              <td>premiers_clients_convaincus_a_la_main</td>
+              <td>1 par 1</td>
+              <td>aucun n'est venu tout seul</td>
+            </tr>
+          </tbody>
         </table>`
   };
 
@@ -2226,15 +2166,6 @@
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  /* ─── SCROLL PROGRESS BAR ───────────────────────────── */
-  const scrollProgress = document.getElementById('scrollProgress');
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    scrollProgress.style.width = scrollPercent + '%';
-  });
 
   /* ─── EXCEL CAROUSEL ─────────────────────────────────── */
   let currentSlide = 0;
