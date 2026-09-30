@@ -12,20 +12,22 @@
 :root{--bg:#f7f8fa;--ink:#14202b;--mute:#4f5d6b;--rule:#d9dee3;--acc:#0b5c6b;--card:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{background:var(--bg);color:var(--ink);font:17px/1.6 "Source Sans 3",system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink);font:18px/1.6 "Source Sans 3",system-ui,sans-serif}
 a{color:var(--acc)}
 a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;line-height:1.2}
-.wrap{max-width:900px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 header{position:sticky;top:0;background:rgba(247,248,250,.94);border-bottom:1px solid var(--rule);z-index:5}
 header .wrap{display:flex;justify-content:space-between;align-items:center;height:56px;gap:16px}
 header strong{font-family:"Source Serif 4",serif}
 nav{display:flex;gap:20px;font-size:.95rem;flex-wrap:wrap}
 nav a{text-decoration:none;color:var(--mute)}
 nav a:hover{color:var(--acc)}
-.hero{padding:72px 0 48px}
-.hero h1{font-size:clamp(2rem,5vw,3rem);max-width:18ch;margin-bottom:20px}
-.hero p{max-width:62ch;color:var(--mute);margin-bottom:12px}
+.hero{padding:64px 0 56px;display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:center}
+.hero.nophoto{grid-template-columns:1fr}
+.photo{width:100%;max-width:300px;aspect-ratio:1;object-fit:cover;border-radius:50%;border:1px solid var(--rule);justify-self:end}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);max-width:20ch;margin-bottom:20px}
+.hero p{max-width:68ch;color:var(--mute);margin-bottom:12px}
 .hero p strong{color:var(--ink)}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
 .btn{display:inline-block;padding:10px 20px;border:1px solid var(--acc);border-radius:4px;text-decoration:none;font-weight:600}
@@ -45,10 +47,11 @@ h2{font-size:1.6rem;margin-bottom:8px}
 table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--card)}
 th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
 th{font-weight:600;background:#eef1f4}
-.proj{display:grid;gap:28px}
+.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;align-items:start}
+.card.feat{grid-column:1/-1}
 .card{background:var(--card);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
 .card.feat{border-color:var(--acc)}
-.card img{display:block;width:100%;max-height:260px;object-fit:cover;object-position:top;background:#eef1f4}
+.card img{display:block;width:100%;max-height:300px;object-fit:cover;object-position:top;background:#eef1f4}
 .card img.contain{object-fit:contain;padding:12px}
 .cb{padding:22px 24px}
 .cb h3{font-size:1.25rem;margin-bottom:4px}
@@ -59,7 +62,8 @@ th{font-weight:600;background:#eef1f4}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .note{font-size:.9rem;color:var(--mute);margin-top:10px}
 footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-size:.9rem}
-@media(max-width:700px){.tl>li,.cb dl,.two{grid-template-columns:1fr}.tl>li{gap:2px}header nav{display:none}}
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:24px}.photo{order:-1;max-width:170px;justify-self:start}.proj{grid-template-columns:1fr}}
+@media(max-width:700px){.wrap{padding:0 20px}.tl>li,.cb dl,.two{grid-template-columns:1fr}.tl>li{gap:2px}header nav{display:none}}
 </style>
 </head>
 <body>
@@ -67,21 +71,23 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <nav><a href="#parcours">Parcours</a><a href="#methode">Méthode qualité</a><a href="#projets">Projets</a><a href="#automatisation">Automatisation</a><a href="#contact">Contact</a></nav></div></header>
 
 <main class="wrap">
-<div class="hero">
+<div class="hero" id="hero">
+<div>
 <h1>Data analyst, qualité et gouvernance des données</h1>
 <p>Deux ans à la DGFIP à contrôler la qualité de jeux de données destinés à l'Open Data national, avec des outils Python développés pour et avec les bureaux métiers.</p>
 <p>Depuis 2025, je conçois et exploite <strong>MissionsPharma.pro</strong>, un SaaS pour les pharmacies d'officine. Je recherche un poste en CDI en qualité ou gouvernance des données, à Paris ou en Île-de-France.</p>
 <div class="cta">
-<a class="btn main" href="cv.pdf">Télécharger le CV</a>
-<a class="btn" href="https://www.linkedin.com/in/arieh-allouche">LinkedIn</a>
-<a class="btn" href="https://github.com/AriehAllouche">GitHub</a>
-</div>
+<a class="btn main" href="cv.pdf" target="_blank" rel="noopener">Télécharger le CV</a>
+<a class="btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener">LinkedIn</a>
+<a class="btn" href="https://github.com/AriehAllouche" target="_blank" rel="noopener">GitHub</a>
+</div></div>
+<img class="photo" src="images/photo-profil.jpg" alt="Portrait d'Arieh Allouche" width="300" height="300" onerror="this.parentNode.classList.add('nophoto');this.remove()">
 </div>
 
 <section id="parcours">
 <h2>Parcours</h2>
 <ul class="tl">
-<li><span class="d">juil. 2026 – aujourd'hui</span><span><b>ModAi Lab — Responsable développement commercial</b><a href="https://modai-lab.com/en/">ModAi Lab</a> est une plateforme d'entraînement au SQL avec coach IA : missions tirées de cas métier réalistes (140+ notions, 6 univers sectoriels, 10 niveaux) et retour sur la justesse, l'écriture et la performance de chaque requête. Je fais de la prospection B2B auprès d'organismes de formation, d'écoles et d'entreprises pour leur présenter l'offre et recueillir leurs besoins de montée en compétences SQL. J'y affine l'écoute client et la qualification de besoins, utiles pour cadrer un projet data.</span></li>
+<li><span class="d">juil. 2026 – aujourd'hui</span><span><b>ModAi Lab — Responsable développement commercial</b><a href="https://modai-lab.com/en/" target="_blank" rel="noopener">ModAi Lab</a> est une plateforme d'entraînement au SQL avec coach IA : missions tirées de cas métier réalistes (140+ notions, 6 univers sectoriels, 10 niveaux) et retour sur la justesse, l'écriture et la performance de chaque requête. Je fais de la prospection B2B auprès d'organismes de formation, d'écoles et d'entreprises pour leur présenter l'offre et recueillir leurs besoins de montée en compétences SQL. J'y affine l'écoute client et la qualification de besoins, utiles pour cadrer un projet data.</span></li>
 <li><span class="d">juin 2025 – aujourd'hui</span><span><b>Fondateur, MissionsPharma.pro</b>Conception, développement et exploitation d'une solution SaaS qui automatise les bilans de prévention et de grossesse en officine, avec génération de comptes rendus PDF. J'y ai appris à transformer un besoin métier en règles de saisie fiables, à suivre un produit en production et à signer de premiers partenariats.</span></li>
 <li class="key"><span class="d">déc. 2021 – oct. 2023<br>(1 an 11 mois)</span><span><b>Data analyst — Direction générale des Finances publiques (DGFIP)</b>
 <span class="tag">Mon expérience en data quality</span>
@@ -112,7 +118,7 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <p class="note">La documentation associée sépare les métadonnées métier (glossaire, règles de calcul) des métadonnées techniques (types, contraintes, lignage).</p>
 <div class="card" style="margin-top:24px"><img class="contain" src="images/cartographie5.jpg" alt="Planche de traçabilité et lignage de la donnée" loading="lazy">
 <div class="cb"><div class="meta">Planche extraite d'une cartographie de données en 5 planches</div>
-<div class="links"><a href="images/cartographie1.jpg">Processus</a><a href="images/cartographie2.jpg">Dictionnaire</a><a href="images/cartographie3.jpg">Modèle conceptuel</a><a href="images/cartographie4.jpg">Schéma relationnel</a><a href="images/cartographie5.jpg">Lignage</a></div></div></div>
+<div class="links"><a href="images/cartographie1.jpg" target="_blank" rel="noopener">Processus</a><a href="images/cartographie2.jpg" target="_blank" rel="noopener">Dictionnaire</a><a href="images/cartographie3.jpg" target="_blank" rel="noopener">Modèle conceptuel</a><a href="images/cartographie4.jpg" target="_blank" rel="noopener">Schéma relationnel</a><a href="images/cartographie5.jpg" target="_blank" rel="noopener">Lignage</a></div></div></div>
 </section>
 
 <section id="projets">
@@ -140,7 +146,7 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <dt>Ma part</dt><dd>Produit, développement, exploitation et relation avec les pharmaciens, du besoin initial jusqu'aux premiers clients.</dd>
 <dt>Résultat</dt><dd>Plateforme en production, utilisée par des pharmaciens, avec de premiers partenariats commerciaux signés.</dd>
 </dl>
-<div class="links"><a href="https://missionspharma.pro/">Voir le site</a></div>
+<div class="links"><a href="https://missionspharma.pro/" target="_blank" rel="noopener">Voir le site</a></div>
 </div></article>
 
 <article class="card"><img src="images/jo.jpg" alt="Visualisation Tableau sur les JO et les musées" loading="lazy"><div class="cb">
@@ -151,7 +157,7 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <dt>Approche</dt><dd>Croisement et contrôle des données des musées avec l'historique des médaillés olympiques français, présentés dans une visualisation interactive.</dd>
 <dt>Résultat</dt><dd>Référencé comme réutilisation sur data.gouv.fr.</dd>
 </dl>
-<div class="links"><a href="https://www.data.gouv.fr/reuses/a-la-decouverte-des-jo-et-des-tresors-francais-une-exploration-interactive">Voir sur data.gouv.fr</a></div>
+<div class="links"><a href="https://www.data.gouv.fr/reuses/a-la-decouverte-des-jo-et-des-tresors-francais-une-exploration-interactive" target="_blank" rel="noopener">Voir sur data.gouv.fr</a></div>
 </div></article>
 
 <article class="card"><img src="images/gourmet.jpg" alt="Analyse des ventes d'une épicerie fine" loading="lazy"><div class="cb">
@@ -162,7 +168,7 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <dt>Approche</dt><dd>Correction des anomalies de facturation, déduplication, puis analyse des ventes et cartographie des clients.</dd>
 <dt>Résultat</dt><dd>Quatre profils de consommation et des zones géographiques sous-exploitées.</dd>
 </dl>
-<div class="links"><a href="https://github.com/AriehAllouche/Analyse_Commerce_Gourmet">Code sur GitHub</a></div>
+<div class="links"><a href="https://github.com/AriehAllouche/Analyse_Commerce_Gourmet" target="_blank" rel="noopener">Code sur GitHub</a></div>
 </div></article>
 
 <article class="card"><img src="images/powerbi.jpg" alt="Tableau de bord Power BI des ventes" loading="lazy"><div class="cb">
@@ -173,7 +179,7 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <dt>Approche</dt><dd>Modèle en étoile, mesures DAX de comparaison N / N-1, table de dates.</dd>
 <dt>Résultat</dt><dd>Un rapport unique pour suivre marges et rentabilité par pays sur 8 gammes.</dd>
 </dl>
-<div class="links"><a href="https://github.com/AriehAllouche/Analyse_vente_power_bi">Code sur GitHub</a></div>
+<div class="links"><a href="https://github.com/AriehAllouche/Analyse_vente_power_bi" target="_blank" rel="noopener">Code sur GitHub</a></div>
 </div></article>
 
 </div>
@@ -183,11 +189,11 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <h2>Automatisation avec Make</h2>
 <p class="lead">Deux scénarios que j'ai construits et que j'utilise : un envoi planifié pour ma prospection, et une alerte déclenchée en temps réel par mon application.</p>
 <div class="two">
-<div class="card"><img class="contain" src="images/make-relance-planifiee.png" alt="Scénario Make : Google Sheets, filtre, Gmail, mise à jour de ligne" loading="lazy"><div class="cb">
+<div class="card"><img class="contain" src="images/make-prospection-b2b.png" alt="Scénario Make : Google Sheets, filtre, Gmail, mise à jour de ligne" loading="lazy"><div class="cb">
 <h3>Prospection B2B : e-mails personnalisés</h3>
 <div class="meta">Usage : ModAi Lab · Google Sheets, Gmail</div>
 <p>Ma liste de prospects (organismes de formation, écoles, entreprises) est dans une feuille. Le scénario la lit à intervalle régulier et envoie à chaque contact un mail personnalisé avec les informations de sa ligne. Un filtre ne laisse passer que les lignes dont le mail n'a pas encore été envoyé, puis la ligne est mise à jour pour marquer l'envoi. Relancé, il n'écrit jamais deux fois au même contact.</p></div></div>
-<div class="card"><img class="contain" src="images/make-webhook-notifications.png" alt="Scénario Make : webhook, routeur, Gmail, Telegram, Google Sheets" loading="lazy"><div class="cb">
+<div class="card"><img class="contain" src="images/make-alerte-nouveau-compte.png" alt="Scénario Make : webhook, routeur, Gmail, Telegram, Google Sheets" loading="lazy"><div class="cb">
 <h3>Alerte à chaque nouveau compte MissionsPharma</h3>
 <div class="meta">Usage : MissionsPharma.pro · Webhook, Gmail, Telegram, Google Sheets</div>
 <p>Quand un nouveau client crée un compte sur MissionsPharma, l'application déclenche un webhook. Je reçois aussitôt un e-mail et un message Telegram, et chaque inscription est ajoutée à une feuille de suivi qui sert de journal.</p></div></div>
@@ -200,8 +206,8 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <p class="lead">Je réponds en général sous 24 heures.</p>
 <div class="cta">
 <a class="btn main" href="mailto:arieh.data@gmail.com">arieh.data@gmail.com</a>
-<a class="btn" href="cv.pdf">CV (PDF)</a>
-<a class="btn" href="https://www.linkedin.com/in/arieh-allouche">LinkedIn</a>
+<a class="btn" href="cv.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+<a class="btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener">LinkedIn</a>
 </div>
 </section>
 </main>
