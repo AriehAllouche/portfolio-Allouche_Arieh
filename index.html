@@ -181,19 +181,18 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 
 <section id="automatisation">
 <h2>Automatisation avec Make</h2>
-<p class="lead">Deux scénarios que j'ai construits et que je fais tourner : un traitement planifié qui n'agit qu'une seule fois par ligne, et un flux déclenché par événement avec journalisation.</p>
+<p class="lead">Deux scénarios que j'ai construits et que j'utilise : un envoi planifié pour ma prospection, et une alerte déclenchée en temps réel par mon application.</p>
 <div class="two">
 <div class="card"><img class="contain" src="images/make-relance-planifiee.png" alt="Scénario Make : Google Sheets, filtre, Gmail, mise à jour de ligne" loading="lazy"><div class="cb">
-<h3>Envoi planifié sans doublon</h3>
-<div class="meta">Google Sheets · Gmail</div>
-<p>Le scénario lit la feuille à intervalle régulier, cherche les lignes concernées, n'envoie le mail que si l'email n'a pas déjà été envoyé (filtre), puis met la ligne à jour pour marquer l'envoi. Relancé, il ne renvoie rien deux fois.</p></div></div>
+<h3>Prospection B2B : e-mails personnalisés</h3>
+<div class="meta">Usage : ModAi Lab · Google Sheets, Gmail</div>
+<p>Ma liste de prospects (organismes de formation, écoles, entreprises) est dans une feuille. Le scénario la lit à intervalle régulier et envoie à chaque contact un mail personnalisé avec les informations de sa ligne. Un filtre ne laisse passer que les lignes dont le mail n'a pas encore été envoyé, puis la ligne est mise à jour pour marquer l'envoi. Relancé, il n'écrit jamais deux fois au même contact.</p></div></div>
 <div class="card"><img class="contain" src="images/make-webhook-notifications.png" alt="Scénario Make : webhook, routeur, Gmail, Telegram, Google Sheets" loading="lazy"><div class="cb">
-<h3>Flux événementiel avec trace</h3>
-<div class="meta">Webhook · Gmail · Telegram · Google Sheets</div>
-<p>Un webhook reçoit l'événement, un routeur choisit le type de mail à envoyer, une notification part sur Telegram et chaque passage est ajouté dans une feuille qui sert de journal.</p></div></div>
+<h3>Alerte à chaque nouveau compte MissionsPharma</h3>
+<div class="meta">Usage : MissionsPharma.pro · Webhook, Gmail, Telegram, Google Sheets</div>
+<p>Quand un nouveau client crée un compte sur MissionsPharma, l'application déclenche un webhook. Je reçois aussitôt un e-mail et un message Telegram, et chaque inscription est ajoutée à une feuille de suivi qui sert de journal.</p></div></div>
 </div>
-<p class="note">Ces deux principes, marquer le traitement effectué et garder une trace de chaque exécution, sont ceux que j'applique aux contrôles qualité récurrents.</p>
-<!-- À compléter : contexte métier réel de chaque scénario (quel usage, quelle fréquence). -->
+<p class="note">Dans les deux cas, je marque ce qui a été traité et je garde une trace de chaque exécution. Ce sont les principes que j'applique aux contrôles qualité récurrents.</p>
 </section>
 
 <section id="contact">
