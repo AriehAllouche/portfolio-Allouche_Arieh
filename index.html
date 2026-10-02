@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arieh Allouche — Data Analyst, qualité et gouvernance des données</title>
 <meta name="description" content="Arieh Allouche, data analyst spécialisé en qualité et gouvernance des données. Ancien data analyst à la DGFIP (Open Data), fondateur de MissionsPharma.pro.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Arieh Allouche — Data Analyst, qualité et gouvernance des données">
+<meta property="og:description" content="Deux ans à la DGFIP sur la qualité des données Open Data, fondateur de MissionsPharma.pro, formé au DevOps en 2026.">
+<meta property="og:image" content="images/photo-profil.jpg">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
@@ -18,9 +23,9 @@ a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;line-height:1.2}
 .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 header{position:sticky;top:0;background:rgba(247,248,250,.94);border-bottom:1px solid var(--rule);z-index:5}
-header .wrap{display:flex;justify-content:space-between;align-items:center;height:56px;gap:16px}
+header .wrap{display:flex;justify-content:space-between;align-items:center;min-height:56px;gap:8px 16px;flex-wrap:wrap}
 header strong{font-family:"Source Serif 4",serif}
-nav{display:flex;gap:20px;font-size:.95rem;flex-wrap:wrap}
+nav{display:flex;gap:6px 20px;font-size:.95rem;flex-wrap:wrap}
 nav a{text-decoration:none;color:var(--mute)}
 nav a:hover{color:var(--acc)}
 .hero{padding:64px 0 56px;display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:center}
@@ -44,6 +49,8 @@ h2{font-size:1.6rem;margin-bottom:8px}
 .tl .tag{display:inline-block;margin:6px 0 10px;padding:2px 10px;border:1px solid var(--acc);border-radius:999px;color:var(--acc);font-size:.85rem;font-weight:600}
 .tl .pts{margin:6px 0 0 18px;display:grid;gap:4px}
 .tl .stack{margin-top:10px;color:var(--mute);font-size:.92rem}
+.sk{display:grid;gap:10px;max-width:90ch}
+.sk p b{display:inline}
 table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--card)}
 th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
 th{font-weight:600;background:#eef1f4}
@@ -51,7 +58,7 @@ th{font-weight:600;background:#eef1f4}
 .card.feat{grid-column:1/-1}
 .card{background:var(--card);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
 .card.feat{border-color:var(--acc)}
-.card img{display:block;width:100%;max-height:300px;object-fit:cover;object-position:top;background:#eef1f4}
+.card img{display:block;width:100%;aspect-ratio:16/9;max-height:300px;object-fit:cover;object-position:top;background:#eef1f4}
 .card img.contain{object-fit:contain;padding:12px}
 .cb{padding:22px 24px}
 .cb h3{font-size:1.25rem;margin-bottom:4px}
@@ -63,19 +70,19 @@ th{font-weight:600;background:#eef1f4}
 .note{font-size:.9rem;color:var(--mute);margin-top:10px}
 footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-size:.9rem}
 @media(max-width:900px){.hero{grid-template-columns:1fr;gap:24px}.photo{order:-1;max-width:170px;justify-self:start}.proj{grid-template-columns:1fr}}
-@media(max-width:700px){.wrap{padding:0 20px}.tl>li,.cb dl,.two{grid-template-columns:1fr}.tl>li{gap:2px}header nav{display:none}}
+@media(max-width:700px){.wrap{padding:0 20px}.tl>li,.cb dl,.two{grid-template-columns:1fr}.tl>li{gap:2px}header .wrap{padding-top:8px;padding-bottom:8px}nav{font-size:.85rem;gap:4px 14px}}
 </style>
 </head>
 <body>
 <header><div class="wrap"><strong>Arieh Allouche</strong>
-<nav><a href="#parcours">Parcours</a><a href="#methode">Méthode qualité</a><a href="#projets">Projets</a><a href="#automatisation">Automatisation</a><a href="#contact">Contact</a></nav></div></header>
+<nav><a href="#parcours">Parcours</a><a href="#competences">Compétences</a><a href="#methode">Méthode qualité</a><a href="#projets">Projets</a><a href="#automatisation">Automatisation</a><a href="#contact">Contact</a></nav></div></header>
 
 <main class="wrap">
 <div class="hero" id="hero">
 <div>
 <h1>Data analyst, qualité et gouvernance des données</h1>
 <p>Deux ans à la DGFIP à contrôler la qualité de jeux de données destinés à l'Open Data national, avec des outils Python développés pour et avec les bureaux métiers.</p>
-<p>Depuis 2025, je conçois et exploite <strong>MissionsPharma.pro</strong>, un SaaS pour les pharmacies d'officine. Je recherche un poste en CDI en qualité ou gouvernance des données, à Paris ou en Île-de-France.</p>
+<p>Depuis 2025, je conçois et exploite <strong>MissionsPharma.pro</strong>, un SaaS pour les pharmacies d'officine. Formé au DevOps début 2026, je sais aussi déployer et surveiller ce que je développe. Je recherche un poste en CDI en qualité ou gouvernance des données, à Paris ou en Île-de-France.</p>
 <div class="cta">
 <a class="btn main" href="cv.pdf" target="_blank" rel="noopener">Télécharger le CV</a>
 <a class="btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener">LinkedIn</a>
@@ -87,20 +94,33 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <section id="parcours">
 <h2>Parcours</h2>
 <ul class="tl">
-<li><span class="d">juil. 2026 – aujourd'hui</span><span><b>ModAi Lab — Responsable développement commercial</b><a href="https://modai-lab.com/en/" target="_blank" rel="noopener">ModAi Lab</a> est une plateforme d'entraînement au SQL avec coach IA : missions tirées de cas métier réalistes (140+ notions, 6 univers sectoriels, 10 niveaux) et retour sur la justesse, l'écriture et la performance de chaque requête. Je fais de la prospection B2B auprès d'organismes de formation, d'écoles et d'entreprises pour leur présenter l'offre et recueillir leurs besoins de montée en compétences SQL. J'y affine l'écoute client et la qualification de besoins, utiles pour cadrer un projet data.</span></li>
-<li><span class="d">juin 2025 – aujourd'hui</span><span><b>Fondateur, MissionsPharma.pro</b>Conception, développement et exploitation d'une solution SaaS qui automatise les bilans de prévention et de grossesse en officine, avec génération de comptes rendus PDF. J'y ai appris à transformer un besoin métier en règles de saisie fiables, à suivre un produit en production et à signer de premiers partenariats.</span></li>
-<li class="key"><span class="d">déc. 2021 – oct. 2023<br>(1 an 11 mois)</span><span><b>Data analyst — Direction générale des Finances publiques (DGFIP)</b>
+<li><span class="d">juil. 2026 – aujourd'hui</span><span><b>ModAi Lab — Responsable développement commercial</b><a href="https://modai-lab.com/en/" target="_blank" rel="noopener">ModAi Lab</a> est une plateforme d'entraînement au SQL avec coach IA : missions tirées de cas métier réalistes (140+ notions, 6 univers sectoriels, 10 niveaux) et retour sur la justesse, l'écriture et la performance de chaque requête. Je fais de la prospection B2B auprès d'organismes de formation, d'écoles et d'entreprises pour leur présenter l'offre et recueillir leurs besoins de montée en compétences SQL.</span></li>
+<li><span class="d">sept. 2025 – aujourd'hui</span><span><b>Fondateur, MissionsPharma.pro</b>Conception, développement et exploitation d'un SaaS qui automatise les bilans de prévention et de grossesse en officine, avec génération de comptes rendus PDF. Temps de saisie par bilan ramené de 45 à 5 minutes. Dashboards Power BI de suivi pour 10 pharmacies clientes. J'y ai appris à transformer un besoin métier en règles de saisie fiables et à suivre un produit en production.</span></li>
+<li><span class="d">janv. – mars 2026</span><span><b>Bootcamp DevOps et Data Engineering — La Capsule</b>Docker, Kubernetes, CI/CD, AWS, Terraform. Projet de fin de formation : déploiement de l'application Taiga sur AWS (<a href="#projets">voir le projet</a>).</span></li>
+<li><span class="d">2023 – 2025</span><span><b>Analyste de données et formateur indépendant (freelance)</b>Accompagnement de 20 étudiants sur 40 projets data (SQL, Python, Power BI, Tableau) : cadrage du besoin, nettoyage, analyse, visualisation et préparation des soutenances. Tous ont validé leur soutenance.</span></li>
+<li class="key"><span class="d">sept. 2021 – sept. 2023<br>(2 ans)</span><span><b>Data analyst — Direction générale des Finances publiques (DGFIP)</b>
 <span class="tag">Mon expérience en data quality</span>
 <ul class="pts">
-<li><strong>Audit qualité :</strong> analyse de plus de 100 jeux de données destinés à l'Open Data national.</li>
-<li><strong>Automatisation :</strong> outil de vérification d'erreurs en Python/Flask, qui a permis de valider la conformité de plus de 50 jeux de données critiques.</li>
-<li><strong>Correction à la source :</strong> workflow de retour d'expérience avec les bureaux métiers propriétaires des données, pour traiter les anomalies chez ceux qui les produisent plutôt que de les corriger en aval.</li>
-<li><strong>Restitution :</strong> tableaux de bord déployés sur Tableau Server pour faciliter la réutilisation citoyenne des données.</li>
+<li><strong>Besoins métiers :</strong> recueil des besoins des bureaux métiers et rédaction des cahiers des charges, traduits en règles de contrôle qualité.</li>
+<li><strong>Audit et automatisation :</strong> analyse de plus de 100 jeux de données destinés à l'Open Data national ; outil de vérification en Python (Flask/Tkinter), qui a permis de valider la conformité de plus de 50 jeux critiques.</li>
+<li><strong>Correction à la source :</strong> restitution des anomalies aux bureaux propriétaires des données, pour les traiter chez ceux qui les produisent plutôt qu'en aval.</li>
+<li><strong>Gouvernance :</strong> cartographie des flux (traçabilité, lineage), dictionnaires de données et glossaires pour harmoniser les définitions.</li>
+<li><strong>Restitution :</strong> tableaux de bord Tableau pour faciliter la réutilisation des données publiées sur data.gouv.fr ; co-organisation d'un hackathon Open Data.</li>
 </ul>
 <div class="stack">Python · Flask · SQL · Tableau · Data quality · Gouvernance · Open Data</div></span></li>
-<li><span class="d">2021 – 2023</span><span><b>Master 2 Management et Intelligence artificielle — IA School</b>Gestion de projet et cadrage de besoins, apprentissage automatique, Python, Power BI, chatbots et outils d'IA générative. Formation suivie en parallèle de mon poste à la DGFIP.</span></li>
+<li><span class="d">2021 – 2023</span><span><b>Master 2 Management et Intelligence artificielle — IA School</b>Gestion de projet data, apprentissage automatique, Python, Power BI, Tableau, bases de données SQL. Formation suivie en parallèle de mon poste à la DGFIP.</span></li>
 <li><span class="d">2017 – 2021</span><span><b>Licence MIASHS — Université Paris 1 Panthéon-Sorbonne</b>Mathématiques et informatique appliquées aux sciences humaines et sociales : statistiques, probabilités et programmation, base de ma rigueur analytique.</span></li>
 </ul>
+</section>
+
+<section id="competences">
+<h2>Compétences</h2>
+<div class="sk">
+<p><b>Qualité et gouvernance :</b> contrôles de fiabilité, d'intégrité et de complétude, cartographie des flux et data lineage, dictionnaires de données, glossaires, Open Data (data.gouv.fr).</p>
+<p><b>Analyse et BI :</b> SQL, Python (Pandas, NumPy, Flask), Power BI, Tableau, KPI et reporting.</p>
+<p><b>Automatisation et DevOps :</b> Make, Docker, Kubernetes, GitLab CI/CD, Terraform, AWS (EC2, S3, IAM, VPC), Prometheus et Grafana.</p>
+<p><b>Outils :</b> Git/GitHub, Jira, Notion, Google Sheets, Microsoft Office. <b>Langue :</b> anglais professionnel (B2).</p>
+</div>
 </section>
 
 <section id="methode">
@@ -123,7 +143,7 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 
 <section id="projets">
 <h2>Projets</h2>
-<p class="lead">Un cas professionnel, un produit en exploitation et trois projets personnels sur données publiques ou fictives.</p>
+<p class="lead">Un cas professionnel, un produit en exploitation, un projet de formation DevOps et trois projets personnels sur données publiques ou fictives.</p>
 <div class="proj">
 
 <article class="card feat"><div class="cb">
@@ -131,10 +151,9 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <div class="meta">Expérience professionnelle · Python, Flask, Tableau Server · 2021 – 2023</div>
 <dl>
 <dt>Problème</dt><dd>Les jeux de données destinés à la publication Open Data devaient être conformes avant diffusion, et les erreurs corrigées par les bureaux qui en sont propriétaires.</dd>
-<dt>Approche</dt><dd>Audit de plus de 100 jeux de données. Outil de vérification d'erreurs en Python/Flask. Workflow de retour vers les bureaux métiers pour corriger les anomalies à la source.</dd>
+<dt>Approche</dt><dd>Audit de plus de 100 jeux de données. Outil de vérification en Python (Flask/Tkinter). Workflow de retour vers les bureaux métiers pour corriger les anomalies à la source.</dd>
 <dt>Résultat</dt><dd>Conformité validée sur plus de 50 jeux de données critiques. Tableaux de bord déployés sur Tableau Server pour faciliter la réutilisation citoyenne.</dd>
 </dl>
-<!-- À compléter : nature des règles contrôlées, volume, délais, retours des bureaux métiers (sans données confidentielles). -->
 </div></article>
 
 <article class="card"><img src="images/missionspharma.jpg" alt="Capture de MissionsPharma.pro" loading="lazy"><div class="cb">
@@ -142,11 +161,22 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
 <div class="meta">SaaS en exploitation · React, Firebase, Stripe, Node.js · depuis 2025</div>
 <dl>
 <dt>Problème</dt><dd>Depuis 2024, les pharmaciens peuvent réaliser les bilans de prévention de l'Assurance maladie. Au comptoir, il faut saisir le bilan de façon structurée, produire des documents conformes et les transmettre, sans perdre de temps.</dd>
-<dt>Approche</dt><dd>Application web conçue avec des pharmaciens : saisie structurée du bilan, génération automatique de comptes rendus PDF conformes aux exigences Ameli (bilans de prévention et de grossesse), envoi des documents, abonnements Stripe avec essai gratuit de 7 jours.</dd>
+<dt>Approche</dt><dd>Application web conçue avec des pharmaciens : saisie structurée du bilan, comptes rendus PDF conformes aux exigences Ameli (bilans de prévention et de grossesse), envoi des documents, abonnements Stripe avec essai gratuit de 7 jours. Backlog géré en Kanban.</dd>
 <dt>Ma part</dt><dd>Produit, développement, exploitation et relation avec les pharmaciens, du besoin initial jusqu'aux premiers clients.</dd>
-<dt>Résultat</dt><dd>Plateforme en production, utilisée par des pharmaciens, avec de premiers partenariats commerciaux signés.</dd>
+<dt>Résultat</dt><dd>Plateforme en production pour 10 pharmacies clientes. Saisie par bilan ramenée de 45 à 5 minutes, avec des dashboards Power BI de suivi.</dd>
 </dl>
 <div class="links"><a href="https://missionspharma.pro/" target="_blank" rel="noopener">Voir le site</a></div>
+</div></article>
+
+<article class="card"><div class="cb">
+<h3>Déploiement de Taiga sur AWS</h3>
+<div class="meta">Projet de fin de formation · La Capsule · Docker Swarm, Terraform, GitLab CI · 2026</div>
+<dl>
+<dt>Problème</dt><dd>Déployer l'application de gestion agile Taiga (front, back, events) sur AWS, avec mises à jour sans coupure et un suivi de l'infrastructure.</dd>
+<dt>Approche</dt><dd>Cluster Docker Swarm avec mises à jour progressives. Infrastructure Terraform (VPC, RDS, EFS). Pipelines GitLab CI avec SonarCloud, tests unitaires et déploiements staging/production.</dd>
+<dt>Sécurité</dt><dd>Bastion SSH sécurisé (Fail2ban), sauvegardes PostgreSQL vers S3, monitoring Prometheus/Grafana.</dd>
+<dt>Résultat</dt><dd>Frais réseau réduits d'environ 90 % grâce à fck-nat.</dd>
+</dl>
 </div></article>
 
 <article class="card"><img src="images/jo.jpg" alt="Visualisation Tableau sur les JO et les musées" loading="lazy"><div class="cb">
