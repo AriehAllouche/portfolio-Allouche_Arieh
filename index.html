@@ -14,7 +14,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f8fa;--ink:#14202b;--mute:#4f5d6b;--rule:#d9dee3;--acc:#0b5c6b;--card:#fff}
+:root{
+  --bg:#f7f8fa;
+  --ink:#14202b;
+  --mute:#4f5d6b;
+  --rule:#d9dee3;
+  --acc:#0b5c6b;
+  --acc2:#5b3fa6;
+  --card:#fff;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:70px}
 body{background:var(--bg);color:var(--ink);font:18px/1.6 "Source Sans 3",system-ui,sans-serif}
@@ -22,7 +30,7 @@ a{color:var(--acc)}
 a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;line-height:1.2}
 .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
-header{position:sticky;top:0;background:rgba(247,248,250,.94);border-bottom:1px solid var(--rule);z-index:5}
+header{position:sticky;top:0;background:rgba(247,248,250,.94);border-bottom:1px solid var(--rule);z-index:5;backdrop-filter:blur(6px)}
 header .wrap{display:flex;justify-content:space-between;align-items:center;min-height:56px;gap:8px 16px;flex-wrap:wrap}
 header strong{font-family:"Source Serif 4",serif}
 nav{display:flex;gap:6px 20px;font-size:.95rem;flex-wrap:wrap}
@@ -39,6 +47,9 @@ nav a:hover{color:var(--acc)}
 .btn.main{background:var(--acc);color:#fff}
 section{padding:48px 0;border-top:1px solid var(--rule)}
 h2{font-size:1.6rem;margin-bottom:8px}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;padding:3px 10px;border-radius:999px}
+.section-label.exp{background:#e6f0f2;color:var(--acc)}
+.section-label.edu{background:#ede8f7;color:var(--acc2)}
 .lead{color:var(--mute);max-width:62ch;margin-bottom:28px}
 .tl{list-style:none;display:grid;gap:20px}
 .tl>li{display:grid;grid-template-columns:1fr 170px;gap:16px}
@@ -49,6 +60,11 @@ h2{font-size:1.6rem;margin-bottom:8px}
 .tl .tag{display:inline-block;margin:6px 0 10px;padding:2px 10px;border:1px solid var(--acc);border-radius:999px;color:var(--acc);font-size:.85rem;font-weight:600}
 .tl .pts{margin:6px 0 0 18px;display:grid;gap:4px}
 .tl .stack{margin-top:10px;color:var(--mute);font-size:.92rem}
+.tl-edu{list-style:none;display:grid;gap:16px}
+.tl-edu>li{display:grid;grid-template-columns:1fr 170px;gap:16px;background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--acc2);border-radius:4px;padding:16px 20px}
+.tl-edu .d{color:var(--mute);font-size:.95rem;text-align:right;order:2}
+.tl-edu b{display:block;font-family:"Source Serif 4",Georgia,serif}
+.tl-edu .sub{color:var(--mute);font-size:.95rem;margin-top:4px}
 .sk{display:grid;gap:10px;max-width:90ch}
 .sk p b{display:inline}
 table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--card)}
@@ -69,179 +85,311 @@ th{font-weight:600;background:#eef1f4}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .note{font-size:.9rem;color:var(--mute);margin-top:10px}
 footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-size:.9rem}
-@media(max-width:900px){.hero{grid-template-columns:1fr;gap:24px}.photo{order:-1;max-width:170px;justify-self:start}.proj{grid-template-columns:1fr}}
-@media(max-width:700px){.wrap{padding:0 20px}.tl>li,.cb dl,.two{grid-template-columns:1fr}.tl>li{gap:2px}header .wrap{padding-top:8px;padding-bottom:8px}nav{font-size:.85rem;gap:4px 14px}}
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:24px}.photo{order:-1;max-width:170px;justify-self:start}.proj{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+@media(max-width:700px){.wrap{padding:0 20px}.tl>li,.tl-edu>li,.cb dl{grid-template-columns:1fr}.tl>li,.tl-edu>li{gap:4px}.tl .d,.tl-edu .d{text-align:left;order:0}header .wrap{padding-top:8px;padding-bottom:8px}nav{font-size:.85rem;gap:4px 14px}}
 </style>
 </head>
 <body>
-<header><div class="wrap"><strong>Arieh Allouche</strong>
-<nav><a href="#parcours">Parcours</a><a href="#competences">Compétences</a><a href="#methode">Méthode qualité</a><a href="#projets">Projets</a><a href="#automatisation">Automatisation</a><a href="#contact">Contact</a></nav></div></header>
+
+<header>
+  <div class="wrap">
+    <strong>Arieh Allouche</strong>
+    <nav aria-label="Navigation principale">
+      <a href="#experience">Expérience</a>
+      <a href="#formation">Formation</a>
+      <a href="#competences">Compétences</a>
+      <a href="#methode">Méthode qualité</a>
+      <a href="#projets">Projets</a>
+      <a href="#automatisation">Automatisation</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
 
 <main class="wrap">
-<div class="hero" id="hero">
-<div>
-<h1>Data analyst, qualité et gouvernance des données</h1>
-<p>Deux ans à la DGFIP à contrôler la qualité de jeux de données destinés à l'Open Data national, avec des outils Python développés pour et avec les bureaux métiers.</p>
-<p>Depuis 2025, je conçois et exploite <strong>MissionsPharma.pro</strong>, un SaaS pour les pharmacies d'officine. Formé au DevOps début 2026, je sais aussi déployer et surveiller ce que je développe. Je recherche un poste en CDI en qualité ou gouvernance des données, à Paris ou en Île-de-France.</p>
-<div class="cta">
-<a class="btn main" href="cv.pdf" target="_blank" rel="noopener">Télécharger le CV</a>
-<a class="btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener">LinkedIn</a>
-<a class="btn" href="https://github.com/AriehAllouche" target="_blank" rel="noopener">GitHub</a>
-</div></div>
-<img class="photo" src="images/photo-profil.jpg" alt="Portrait d'Arieh Allouche" width="300" height="300" onerror="this.parentNode.classList.add('nophoto');this.remove()">
-</div>
 
-<section id="parcours">
-<h2>Parcours</h2>
-<ul class="tl">
-<li><span class="d">juil. 2026 – aujourd'hui</span><span><b>ModAi Lab — Responsable développement commercial</b><a href="https://modai-lab.com/en/" target="_blank" rel="noopener">ModAi Lab</a> est une plateforme d'entraînement au SQL avec coach IA : missions tirées de cas métier réalistes (140+ notions, 6 univers sectoriels, 10 niveaux) et retour sur la justesse, l'écriture et la performance de chaque requête. Je fais de la prospection B2B auprès d'organismes de formation, d'écoles et d'entreprises pour leur présenter l'offre et recueillir leurs besoins de montée en compétences SQL.</span></li>
-<li><span class="d">sept. 2025 – aujourd'hui</span><span><b>Fondateur, MissionsPharma.pro</b>Conception, développement et exploitation d'un SaaS qui automatise les bilans de prévention et de grossesse en officine, avec génération de comptes rendus PDF. Temps de saisie par bilan ramené de 45 à 5 minutes. Dashboards Power BI de suivi pour 10 pharmacies clientes. J'y ai appris à transformer un besoin métier en règles de saisie fiables et à suivre un produit en production.</span></li>
-<li><span class="d">janv. – mars 2026</span><span><b>Bootcamp DevOps et Data Engineering — La Capsule</b>Docker, Kubernetes, CI/CD, AWS, Terraform. Projet de fin de formation : déploiement de l'application Taiga sur AWS (<a href="#projets">voir le projet</a>).</span></li>
-<li><span class="d">2023 – 2025</span><span><b>Analyste de données et formateur indépendant (freelance)</b>Accompagnement de 20 étudiants sur 40 projets data (SQL, Python, Power BI, Tableau) : cadrage du besoin, nettoyage, analyse, visualisation et préparation des soutenances. Tous ont validé leur soutenance.</span></li>
-<li class="key"><span class="d">sept. 2021 – sept. 2023<br>(2 ans)</span><span><b>Data analyst — Direction générale des Finances publiques (DGFIP)</b>
-<span class="tag">Mon expérience en data quality</span>
-<ul class="pts">
-<li><strong>Besoins métiers :</strong> recueil des besoins des bureaux métiers et rédaction des cahiers des charges, traduits en règles de contrôle qualité.</li>
-<li><strong>Audit et automatisation :</strong> analyse de plus de 100 jeux de données destinés à l'Open Data national ; outil de vérification en Python (Flask/Tkinter), qui a permis de valider la conformité de plus de 50 jeux critiques.</li>
-<li><strong>Correction à la source :</strong> restitution des anomalies aux bureaux propriétaires des données, pour les traiter chez ceux qui les produisent plutôt qu'en aval.</li>
-<li><strong>Gouvernance :</strong> cartographie des flux (traçabilité, lineage), dictionnaires de données et glossaires pour harmoniser les définitions.</li>
-<li><strong>Restitution :</strong> tableaux de bord Tableau pour faciliter la réutilisation des données publiées sur data.gouv.fr ; co-organisation d'un hackathon Open Data.</li>
-</ul>
-<div class="stack">Python · Flask · SQL · Tableau · Data quality · Gouvernance · Open Data</div></span></li>
-<li><span class="d">2021 – 2023</span><span><b>Master 2 Management et Intelligence artificielle — IA School</b>Gestion de projet data, apprentissage automatique, Python, Power BI, Tableau, bases de données SQL. Formation suivie en parallèle de mon poste à la DGFIP.</span></li>
-<li><span class="d">2017 – 2021</span><span><b>Licence MIASHS — Université Paris 1 Panthéon-Sorbonne</b>Mathématiques et informatique appliquées aux sciences humaines et sociales : statistiques, probabilités et programmation, base de ma rigueur analytique.</span></li>
-</ul>
-</section>
+  <div class="hero" id="hero">
+    <div>
+      <h1>Data analyst, qualité et gouvernance des données</h1>
+      <p>Deux ans à la DGFIP à contrôler la qualité de jeux de données destinés à l'Open Data national, avec des outils Python développés pour et avec les bureaux métiers.</p>
+      <p>Depuis 2025, je conçois et exploite <strong>MissionsPharma.pro</strong>, un SaaS pour les pharmacies d'officine. Formé au DevOps début 2026, je sais aussi déployer et surveiller ce que je développe. Je recherche un poste en CDI en qualité ou gouvernance des données, à Paris ou en Île-de-France.</p>
+      <div class="cta">
+        <a class="btn main" href="cv.pdf" target="_blank" rel="noopener" aria-label="Télécharger le CV (PDF)">Télécharger le CV</a>
+        <a class="btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener" aria-label="Profil LinkedIn">LinkedIn</a>
+        <a class="btn" href="https://github.com/AriehAllouche" target="_blank" rel="noopener" aria-label="Profil GitHub">GitHub</a>
+      </div>
+    </div>
+    <img class="photo" src="images/photo-profil.jpg" alt="Portrait d'Arieh Allouche" width="300" height="300"
+         onerror="this.parentNode.classList.add('nophoto');this.remove()">
+  </div>
 
-<section id="competences">
-<h2>Compétences</h2>
-<div class="sk">
-<p><b>Qualité et gouvernance :</b> contrôles de fiabilité, d'intégrité et de complétude, cartographie des flux et data lineage, dictionnaires de données, glossaires, Open Data (data.gouv.fr).</p>
-<p><b>Analyse et BI :</b> SQL, Python (Pandas, NumPy, Flask), Power BI, Tableau, KPI et reporting.</p>
-<p><b>Automatisation et DevOps :</b> Make, Docker, Kubernetes, GitLab CI/CD, Terraform, AWS (EC2, S3, IAM, VPC), Prometheus et Grafana.</p>
-<p><b>Outils :</b> Git/GitHub, Jira, Notion, Google Sheets, Microsoft Office. <b>Langue :</b> anglais professionnel (B2).</p>
-</div>
-</section>
 
-<section id="methode">
-<h2>Méthode qualité</h2>
-<p class="lead">Mes contrôles suivent les six dimensions de qualité de la donnée, utilisées dans le cadre DAMA. Voici le type de règle que j'applique pour chacune.</p>
-<table>
-<tr><th>Dimension</th><th>Question posée</th><th>Règle type</th></tr>
-<tr><td>Exactitude</td><td>La valeur reflète-t-elle la réalité ?</td><td>Bornes de valeurs, montants négatifs, écarts de calcul</td></tr>
-<tr><td>Complétude</td><td>Manque-t-il des champs obligatoires ?</td><td>Taux de valeurs nulles par colonne, seuil documenté</td></tr>
-<tr><td>Cohérence</td><td>Les sources se contredisent-elles ?</td><td>Clés étrangères, rapprochement entre tables</td></tr>
-<tr><td>Unicité</td><td>Y a-t-il des doublons ?</td><td>Clé métier unique, déduplication traçable</td></tr>
-<tr><td>Validité</td><td>Le format respecte-t-il le schéma ?</td><td>Expressions régulières, types, dates ISO, référentiels</td></tr>
-<tr><td>Fraîcheur</td><td>La donnée est-elle à jour ?</td><td>Date de dernière mise à jour, alerte en cas de retard</td></tr>
-</table>
-<p class="note">La documentation associée sépare les métadonnées métier (glossaire, règles de calcul) des métadonnées techniques (types, contraintes, lignage).</p>
-<div class="card" style="margin-top:24px"><img class="contain" src="images/cartographie5.jpg" alt="Planche de traçabilité et lignage de la donnée" loading="lazy">
-<div class="cb"><div class="meta">Planche extraite d'une cartographie de données en 5 planches</div>
-<div class="links"><a href="images/cartographie1.jpg" target="_blank" rel="noopener">Processus</a><a href="images/cartographie2.jpg" target="_blank" rel="noopener">Dictionnaire</a><a href="images/cartographie3.jpg" target="_blank" rel="noopener">Modèle conceptuel</a><a href="images/cartographie4.jpg" target="_blank" rel="noopener">Schéma relationnel</a><a href="images/cartographie5.jpg" target="_blank" rel="noopener">Lignage</a></div></div></div>
-</section>
+  <!-- EXPÉRIENCE PROFESSIONNELLE -->
+  <section id="experience">
+    <div class="section-label exp">💼 Expérience professionnelle</div>
+    <h2>Parcours</h2>
+    <p class="lead">Postes occupés, dans l'ordre chronologique inverse.</p>
+    <ul class="tl">
 
-<section id="projets">
-<h2>Projets</h2>
-<p class="lead">Un cas professionnel, un produit en exploitation, un projet de formation DevOps et trois projets personnels sur données publiques ou fictives.</p>
-<div class="proj">
+      <li>
+        <span class="d">juil. 2026 – aujourd'hui</span>
+        <span>
+          <b>ModAi Lab — Responsable développement commercial</b>
+          <a href="https://modai-lab.com/en/" target="_blank" rel="noopener">ModAi Lab</a> est une plateforme d'entraînement au SQL avec coach IA : missions tirées de cas métier réalistes (140+ notions, 6 univers sectoriels, 10 niveaux) et retour sur la justesse, l'écriture et la performance de chaque requête. Je fais de la prospection B2B auprès d'organismes de formation, d'écoles et d'entreprises pour leur présenter l'offre et recueillir leurs besoins de montée en compétences SQL.
+        </span>
+      </li>
 
-<article class="card feat"><div class="cb">
-<h3>Qualité de l'Open Data — DGFIP</h3>
-<div class="meta">Expérience professionnelle · Python, Flask, Tableau Server · 2021 – 2023</div>
-<dl>
-<dt>Problème</dt><dd>Les jeux de données destinés à la publication Open Data devaient être conformes avant diffusion, et les erreurs corrigées par les bureaux qui en sont propriétaires.</dd>
-<dt>Approche</dt><dd>Audit de plus de 100 jeux de données. Outil de vérification en Python (Flask/Tkinter). Workflow de retour vers les bureaux métiers pour corriger les anomalies à la source.</dd>
-<dt>Résultat</dt><dd>Conformité validée sur plus de 50 jeux de données critiques. Tableaux de bord déployés sur Tableau Server pour faciliter la réutilisation citoyenne.</dd>
-</dl>
-</div></article>
+      <li>
+        <span class="d">sept. 2025 – aujourd'hui</span>
+        <span>
+          <b>Fondateur, MissionsPharma.pro</b>
+          Conception, développement et exploitation d'un SaaS qui automatise les bilans de prévention et de grossesse en officine, avec génération de comptes rendus PDF. Temps de saisie par bilan ramené de 45 à 5 minutes. Dashboards Power BI de suivi pour 10 pharmacies clientes. J'y ai appris à transformer un besoin métier en règles de saisie fiables et à suivre un produit en production.
+        </span>
+      </li>
 
-<article class="card"><img src="images/missionspharma.jpg" alt="Capture de MissionsPharma.pro" loading="lazy"><div class="cb">
-<h3>MissionsPharma.pro — PharmaBilan Pro</h3>
-<div class="meta">SaaS en exploitation · React, Firebase, Stripe, Node.js · depuis 2025</div>
-<dl>
-<dt>Problème</dt><dd>Depuis 2024, les pharmaciens peuvent réaliser les bilans de prévention de l'Assurance maladie. Au comptoir, il faut saisir le bilan de façon structurée, produire des documents conformes et les transmettre, sans perdre de temps.</dd>
-<dt>Approche</dt><dd>Application web conçue avec des pharmaciens : saisie structurée du bilan, comptes rendus PDF conformes aux exigences Ameli (bilans de prévention et de grossesse), envoi des documents, abonnements Stripe avec essai gratuit de 7 jours. Backlog géré en Kanban.</dd>
-<dt>Ma part</dt><dd>Produit, développement, exploitation et relation avec les pharmaciens, du besoin initial jusqu'aux premiers clients.</dd>
-<dt>Résultat</dt><dd>Plateforme en production pour 10 pharmacies clientes. Saisie par bilan ramenée de 45 à 5 minutes, avec des dashboards Power BI de suivi.</dd>
-</dl>
-<div class="links"><a href="https://missionspharma.pro/" target="_blank" rel="noopener">Voir le site</a></div>
-</div></article>
+      <li>
+        <span class="d">2023 – 2025</span>
+        <span>
+          <b>Analyste de données et formateur indépendant (freelance)</b>
+          Accompagnement de 20 étudiants sur 40 projets data (SQL, Python, Power BI, Tableau) : cadrage du besoin, nettoyage, analyse, visualisation et préparation des soutenances. Tous ont validé leur soutenance.
+        </span>
+      </li>
 
-<article class="card"><div class="cb">
-<h3>Déploiement de Taiga sur AWS</h3>
-<div class="meta">Projet de fin de formation · La Capsule · Docker Swarm, Terraform, GitLab CI · 2026</div>
-<dl>
-<dt>Problème</dt><dd>Déployer l'application de gestion agile Taiga (front, back, events) sur AWS, avec mises à jour sans coupure et un suivi de l'infrastructure.</dd>
-<dt>Approche</dt><dd>Cluster Docker Swarm avec mises à jour progressives. Infrastructure Terraform (VPC, RDS, EFS). Pipelines GitLab CI avec SonarCloud, tests unitaires et déploiements staging/production.</dd>
-<dt>Sécurité</dt><dd>Bastion SSH sécurisé (Fail2ban), sauvegardes PostgreSQL vers S3, monitoring Prometheus/Grafana.</dd>
-<dt>Résultat</dt><dd>Frais réseau réduits d'environ 90 % grâce à fck-nat.</dd>
-</dl>
-</div></article>
+      <li class="key">
+        <span class="d">sept. 2021 – sept. 2023<br>(2 ans)</span>
+        <span>
+          <b>Data analyst — Direction générale des Finances publiques (DGFIP)</b>
+          <span class="tag">Mon expérience en data quality</span>
+          <ul class="pts">
+            <li><strong>Besoins métiers :</strong> recueil des besoins des bureaux métiers et rédaction des cahiers des charges, traduits en règles de contrôle qualité.</li>
+            <li><strong>Audit et automatisation :</strong> analyse de plus de 100 jeux de données destinés à l'Open Data national ; outil de vérification en Python (Flask/Tkinter), qui a permis de valider la conformité de plus de 50 jeux critiques.</li>
+            <li><strong>Correction à la source :</strong> restitution des anomalies aux bureaux propriétaires des données, pour les traiter chez ceux qui les produisent plutôt qu'en aval.</li>
+            <li><strong>Gouvernance :</strong> cartographie des flux (traçabilité, lineage), dictionnaires de données et glossaires pour harmoniser les définitions.</li>
+            <li><strong>Restitution :</strong> tableaux de bord Tableau pour faciliter la réutilisation des données publiées sur data.gouv.fr ; co-organisation d'un hackathon Open Data.</li>
+          </ul>
+          <div class="stack">Python · Flask · SQL · Tableau · Data quality · Gouvernance · Open Data</div>
+        </span>
+      </li>
 
-<article class="card"><img src="images/jo.jpg" alt="Visualisation Tableau sur les JO et les musées" loading="lazy"><div class="cb">
-<h3>Les JO et les trésors français</h3>
-<div class="meta">Projet personnel · Tableau, Open Data</div>
-<dl>
-<dt>Problème</dt><dd>Les données ouvertes du ministère de la Culture sont difficiles d'accès sans mise en contexte.</dd>
-<dt>Approche</dt><dd>Croisement et contrôle des données des musées avec l'historique des médaillés olympiques français, présentés dans une visualisation interactive.</dd>
-<dt>Résultat</dt><dd>Référencé comme réutilisation sur data.gouv.fr.</dd>
-</dl>
-<div class="links"><a href="https://www.data.gouv.fr/reuses/a-la-decouverte-des-jo-et-des-tresors-francais-une-exploration-interactive" target="_blank" rel="noopener">Voir sur data.gouv.fr</a></div>
-</div></article>
+    </ul>
+  </section>
 
-<article class="card"><img src="images/gourmet.jpg" alt="Analyse des ventes d'une épicerie fine" loading="lazy"><div class="cb">
-<h3>Audit qualité et analyse des ventes d'une épicerie fine</h3>
-<div class="meta">Projet personnel · Python, Pandas, GeoPandas</div>
-<dl>
-<dt>Problème</dt><dd>Des tables de ventes brutes contenant des montants négatifs et des commandes en double.</dd>
-<dt>Approche</dt><dd>Correction des anomalies de facturation, déduplication, puis analyse des ventes et cartographie des clients.</dd>
-<dt>Résultat</dt><dd>Quatre profils de consommation et des zones géographiques sous-exploitées.</dd>
-</dl>
-<div class="links"><a href="https://github.com/AriehAllouche/Analyse_Commerce_Gourmet" target="_blank" rel="noopener">Code sur GitHub</a></div>
-</div></article>
 
-<article class="card"><img src="images/powerbi.jpg" alt="Tableau de bord Power BI des ventes" loading="lazy"><div class="cb">
-<h3>Tableau de bord des ventes 2021–2023</h3>
-<div class="meta">Projet personnel · Power BI, DAX, modèle en étoile</div>
-<dl>
-<dt>Problème</dt><dd>Comparer les marges par pays et par gamme sans consolider des exports Excel à la main.</dd>
-<dt>Approche</dt><dd>Modèle en étoile, mesures DAX de comparaison N / N-1, table de dates.</dd>
-<dt>Résultat</dt><dd>Un rapport unique pour suivre marges et rentabilité par pays sur 8 gammes.</dd>
-</dl>
-<div class="links"><a href="https://github.com/AriehAllouche/Analyse_vente_power_bi" target="_blank" rel="noopener">Code sur GitHub</a></div>
-</div></article>
+  <!-- FORMATION -->
+  <section id="formation">
+    <div class="section-label edu">🎓 Formation</div>
+    <h2>Diplômes &amp; certifications</h2>
+    <p class="lead">Formations académiques et bootcamps, dans l'ordre chronologique inverse.</p>
+    <ul class="tl-edu">
 
-</div>
-</section>
+      <li>
+        <span class="d">janv. – mars 2026</span>
+        <span>
+          <b>Bootcamp DevOps et Data Engineering — La Capsule</b>
+          <span class="sub">Docker, Kubernetes, CI/CD, AWS, Terraform. Projet de fin de formation : déploiement de l'application Taiga sur AWS (<a href="#projets">voir le projet</a>).</span>
+        </span>
+      </li>
 
-<section id="automatisation">
-<h2>Automatisation avec Make</h2>
-<p class="lead">Deux scénarios que j'ai construits et que j'utilise : un envoi planifié pour ma prospection, et une alerte déclenchée en temps réel par mon application.</p>
-<div class="two">
-<div class="card"><img class="contain" src="images/make-prospection-b2b.png" alt="Scénario Make : Google Sheets, filtre, Gmail, mise à jour de ligne" loading="lazy"><div class="cb">
-<h3>Prospection B2B : e-mails personnalisés</h3>
-<div class="meta">Usage : ModAi Lab · Google Sheets, Gmail</div>
-<p>Ma liste de prospects (organismes de formation, écoles, entreprises) est dans une feuille. Le scénario la lit à intervalle régulier et envoie à chaque contact un mail personnalisé avec les informations de sa ligne. Un filtre ne laisse passer que les lignes dont le mail n'a pas encore été envoyé, puis la ligne est mise à jour pour marquer l'envoi. Relancé, il n'écrit jamais deux fois au même contact.</p></div></div>
-<div class="card"><img class="contain" src="images/make-alerte-nouveau-compte.png" alt="Scénario Make : webhook, routeur, Gmail, Telegram, Google Sheets" loading="lazy"><div class="cb">
-<h3>Alerte à chaque nouveau compte MissionsPharma</h3>
-<div class="meta">Usage : MissionsPharma.pro · Webhook, Gmail, Telegram, Google Sheets</div>
-<p>Quand un nouveau client crée un compte sur MissionsPharma, l'application déclenche un webhook. Je reçois aussitôt un e-mail et un message Telegram, et chaque inscription est ajoutée à une feuille de suivi qui sert de journal.</p></div></div>
-</div>
-<p class="note">Dans les deux cas, je marque ce qui a été traité et je garde une trace de chaque exécution. Ce sont les principes que j'applique aux contrôles qualité récurrents.</p>
-</section>
+      <li>
+        <span class="d">2021 – 2023</span>
+        <span>
+          <b>Master 2 Management et Intelligence artificielle — IA School</b>
+          <span class="sub">Gestion de projet data, apprentissage automatique, Python, Power BI, Tableau, bases de données SQL. Formation suivie en parallèle de mon poste à la DGFIP.</span>
+        </span>
+      </li>
 
-<section id="contact">
-<h2>Contact</h2>
-<p class="lead">Je réponds en général sous 24 heures.</p>
-<div class="cta">
-<a class="btn main" href="mailto:arieh.data@gmail.com">arieh.data@gmail.com</a>
-<a class="btn" href="cv.pdf" target="_blank" rel="noopener">CV (PDF)</a>
-<a class="btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener">LinkedIn</a>
-</div>
-</section>
+      <li>
+        <span class="d">2017 – 2021</span>
+        <span>
+          <b>Licence MIASHS — Université Paris 1 Panthéon-Sorbonne</b>
+          <span class="sub">Mathématiques et informatique appliquées aux sciences humaines et sociales : statistiques, probabilités et programmation, base de ma rigueur analytique.</span>
+        </span>
+      </li>
+
+    </ul>
+  </section>
+
+
+  <!-- COMPÉTENCES -->
+  <section id="competences">
+    <h2>Compétences</h2>
+    <div class="sk">
+      <p><b>Qualité et gouvernance :</b> contrôles de fiabilité, d'intégrité et de complétude, cartographie des flux et data lineage, dictionnaires de données, glossaires, Open Data (data.gouv.fr).</p>
+      <p><b>Analyse et BI :</b> SQL, Python (Pandas, NumPy, Flask), Power BI, Tableau, KPI et reporting.</p>
+      <p><b>Automatisation et DevOps :</b> Make, Docker, Kubernetes, GitLab CI/CD, Terraform, AWS (EC2, S3, IAM, VPC), Prometheus et Grafana.</p>
+      <p><b>Outils :</b> Git/GitHub, Jira, Notion, Google Sheets, Microsoft Office. <b>Langue :</b> anglais professionnel (B2).</p>
+    </div>
+  </section>
+
+
+  <!-- MÉTHODE QUALITÉ -->
+  <section id="methode">
+    <h2>Méthode qualité</h2>
+    <p class="lead">Mes contrôles suivent les six dimensions de qualité de la donnée, utilisées dans le cadre DAMA. Voici le type de règle que j'applique pour chacune.</p>
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Question posée</th><th>Règle type</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Exactitude</td><td>La valeur reflète-t-elle la réalité ?</td><td>Bornes de valeurs, montants négatifs, écarts de calcul</td></tr>
+        <tr><td>Complétude</td><td>Manque-t-il des champs obligatoires ?</td><td>Taux de valeurs nulles par colonne, seuil documenté</td></tr>
+        <tr><td>Cohérence</td><td>Les sources se contredisent-elles ?</td><td>Clés étrangères, rapprochement entre tables</td></tr>
+        <tr><td>Unicité</td><td>Y a-t-il des doublons ?</td><td>Clé métier unique, déduplication traçable</td></tr>
+        <tr><td>Validité</td><td>Le format respecte-t-il le schéma ?</td><td>Expressions régulières, types, dates ISO, référentiels</td></tr>
+        <tr><td>Fraîcheur</td><td>La donnée est-elle à jour ?</td><td>Date de dernière mise à jour, alerte en cas de retard</td></tr>
+      </tbody>
+    </table>
+    <p class="note">La documentation associée sépare les métadonnées métier (glossaire, règles de calcul) des métadonnées techniques (types, contraintes, lignage).</p>
+    <div class="card" style="margin-top:24px">
+      <img class="contain" src="images/cartographie5.jpg" alt="Planche de traçabilité et lignage de la donnée" loading="lazy">
+      <div class="cb">
+        <div class="meta">Planche extraite d'une cartographie de données en 5 planches</div>
+        <div class="links">
+          <a href="images/cartographie1.jpg" target="_blank" rel="noopener">Processus</a>
+          <a href="images/cartographie2.jpg" target="_blank" rel="noopener">Dictionnaire</a>
+          <a href="images/cartographie3.jpg" target="_blank" rel="noopener">Modèle conceptuel</a>
+          <a href="images/cartographie4.jpg" target="_blank" rel="noopener">Schéma relationnel</a>
+          <a href="images/cartographie5.jpg" target="_blank" rel="noopener">Lignage</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PROJETS -->
+  <section id="projets">
+    <h2>Projets</h2>
+    <p class="lead">Un cas professionnel, un produit en exploitation, un projet de formation DevOps et trois projets personnels sur données publiques ou fictives.</p>
+    <div class="proj">
+
+      <article class="card feat">
+        <div class="cb">
+          <h3>Qualité de l'Open Data — DGFIP</h3>
+          <div class="meta">Expérience professionnelle · Python, Flask, Tableau Server · 2021 – 2023</div>
+          <dl>
+            <dt>Problème</dt><dd>Les jeux de données destinés à la publication Open Data devaient être conformes avant diffusion, et les erreurs corrigées par les bureaux qui en sont propriétaires.</dd>
+            <dt>Approche</dt><dd>Audit de plus de 100 jeux de données. Outil de vérification en Python (Flask/Tkinter). Workflow de retour vers les bureaux métiers pour corriger les anomalies à la source.</dd>
+            <dt>Résultat</dt><dd>Conformité validée sur plus de 50 jeux de données critiques. Tableaux de bord déployés sur Tableau Server pour faciliter la réutilisation citoyenne.</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="images/missionspharma.jpg" alt="Capture de MissionsPharma.pro" loading="lazy">
+        <div class="cb">
+          <h3>MissionsPharma.pro — PharmaBilan Pro</h3>
+          <div class="meta">SaaS en exploitation · React, Firebase, Stripe, Node.js · depuis 2025</div>
+          <dl>
+            <dt>Problème</dt><dd>Depuis 2024, les pharmaciens peuvent réaliser les bilans de prévention de l'Assurance maladie. Au comptoir, il faut saisir le bilan de façon structurée, produire des documents conformes et les transmettre, sans perdre de temps.</dd>
+            <dt>Approche</dt><dd>Application web conçue avec des pharmaciens : saisie structurée du bilan, comptes rendus PDF conformes aux exigences Ameli (bilans de prévention et de grossesse), envoi des documents, abonnements Stripe avec essai gratuit de 7 jours. Backlog géré en Kanban.</dd>
+            <dt>Ma part</dt><dd>Produit, développement, exploitation et relation avec les pharmaciens, du besoin initial jusqu'aux premiers clients.</dd>
+            <dt>Résultat</dt><dd>Plateforme en production pour 10 pharmacies clientes. Saisie par bilan ramenée de 45 à 5 minutes, avec des dashboards Power BI de suivi.</dd>
+          </dl>
+          <div class="links"><a href="https://missionspharma.pro/" target="_blank" rel="noopener">Voir le site</a></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cb">
+          <h3>Déploiement de Taiga sur AWS</h3>
+          <div class="meta">Projet de fin de formation · La Capsule · Docker Swarm, Terraform, GitLab CI · 2026</div>
+          <dl>
+            <dt>Problème</dt><dd>Déployer l'application de gestion agile Taiga (front, back, events) sur AWS, avec mises à jour sans coupure et un suivi de l'infrastructure.</dd>
+            <dt>Approche</dt><dd>Cluster Docker Swarm avec mises à jour progressives. Infrastructure Terraform (VPC, RDS, EFS). Pipelines GitLab CI avec SonarCloud, tests unitaires et déploiements staging/production.</dd>
+            <dt>Sécurité</dt><dd>Bastion SSH sécurisé (Fail2ban), sauvegardes PostgreSQL vers S3, monitoring Prometheus/Grafana.</dd>
+            <dt>Résultat</dt><dd>Frais réseau réduits d'environ 90 % grâce à fck-nat.</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="images/jo.jpg" alt="Visualisation Tableau sur les JO et les musées" loading="lazy">
+        <div class="cb">
+          <h3>Les JO et les trésors français</h3>
+          <div class="meta">Projet personnel · Tableau, Open Data</div>
+          <dl>
+            <dt>Problème</dt><dd>Les données ouvertes du ministère de la Culture sont difficiles d'accès sans mise en contexte.</dd>
+            <dt>Approche</dt><dd>Croisement et contrôle des données des musées avec l'historique des médaillés olympiques français, présentés dans une visualisation interactive.</dd>
+            <dt>Résultat</dt><dd>Référencé comme réutilisation sur data.gouv.fr.</dd>
+          </dl>
+          <div class="links"><a href="https://www.data.gouv.fr/reuses/a-la-decouverte-des-jo-et-des-tresors-francais-une-exploration-interactive" target="_blank" rel="noopener">Voir sur data.gouv.fr</a></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="images/gourmet.jpg" alt="Analyse des ventes d'une épicerie fine" loading="lazy">
+        <div class="cb">
+          <h3>Audit qualité et analyse des ventes d'une épicerie fine</h3>
+          <div class="meta">Projet personnel · Python, Pandas, GeoPandas</div>
+          <dl>
+            <dt>Problème</dt><dd>Des tables de ventes brutes contenant des montants négatifs et des commandes en double.</dd>
+            <dt>Approche</dt><dd>Correction des anomalies de facturation, déduplication, puis analyse des ventes et cartographie des clients.</dd>
+            <dt>Résultat</dt><dd>Quatre profils de consommation et des zones géographiques sous-exploitées.</dd>
+          </dl>
+          <div class="links"><a href="https://github.com/AriehAllouche/Analyse_Commerce_Gourmet" target="_blank" rel="noopener">Code sur GitHub</a></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="images/powerbi.jpg" alt="Tableau de bord Power BI des ventes" loading="lazy">
+        <div class="cb">
+          <h3>Tableau de bord des ventes 2021–2023</h3>
+          <div class="meta">Projet personnel · Power BI, DAX, modèle en étoile</div>
+          <dl>
+            <dt>Problème</dt><dd>Comparer les marges par pays et par gamme sans consolider des exports Excel à la main.</dd>
+            <dt>Approche</dt><dd>Modèle en étoile, mesures DAX de comparaison N / N-1, table de dates.</dd>
+            <dt>Résultat</dt><dd>Un rapport unique pour suivre marges et rentabilité par pays sur 8 gammes.</dd>
+          </dl>
+          <div class="links"><a href="https://github.com/AriehAllouche/Analyse_vente_power_bi" target="_blank" rel="noopener">Code sur GitHub</a></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- AUTOMATISATION -->
+  <section id="automatisation">
+    <h2>Automatisation avec Make</h2>
+    <p class="lead">Deux scénarios que j'ai construits et que j'utilise : un envoi planifié pour ma prospection, et une alerte déclenchée en temps réel par mon application.</p>
+    <div class="two">
+      <div class="card">
+        <img class="contain" src="images/make-prospection-b2b.png" alt="Scénario Make : Google Sheets, filtre, Gmail, mise à jour de ligne" loading="lazy">
+        <div class="cb">
+          <h3>Prospection B2B : e-mails personnalisés</h3>
+          <div class="meta">Usage : ModAi Lab · Google Sheets, Gmail</div>
+          <p>Ma liste de prospects (organismes de formation, écoles, entreprises) est dans une feuille. Le scénario la lit à intervalle régulier et envoie à chaque contact un mail personnalisé avec les informations de sa ligne. Un filtre ne laisse passer que les lignes dont le mail n'a pas encore été envoyé, puis la ligne est mise à jour pour marquer l'envoi. Relancé, il n'écrit jamais deux fois au même contact.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="contain" src="images/make-alerte-nouveau-compte.png" alt="Scénario Make : webhook, routeur, Gmail, Telegram, Google Sheets" loading="lazy">
+        <div class="cb">
+          <h3>Alerte à chaque nouveau compte MissionsPharma</h3>
+          <div class="meta">Usage : MissionsPharma.pro · Webhook, Gmail, Telegram, Google Sheets</div>
+          <p>Quand un nouveau client crée un compte sur MissionsPharma, l'application déclenche un webhook. Je reçois aussitôt un e-mail et un message Telegram, et chaque inscription est ajoutée à une feuille de suivi qui sert de journal.</p>
+        </div>
+      </div>
+    </div>
+    <p class="note">Dans les deux cas, je marque ce qui a été traité et je garde une trace de chaque exécution. Ce sont les principes que j'applique aux contrôles qualité récurrents.</p>
+  </section>
+
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p class="lead">Je réponds en général sous 24 heures.</p>
+    <div class="cta">
+      <a class="btn main" href="mailto:arieh.data@gmail.com">arieh.data@gmail.com</a>
+      <a class="btn" href="cv.pdf" target="_blank" rel="noopener" aria-label="Télécharger le CV (PDF)">CV (PDF)</a>
+      <a class="btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener" aria-label="Profil LinkedIn">LinkedIn</a>
+    </div>
+  </section>
+
 </main>
 
-<footer><div class="wrap">© 2026 Arieh Allouche</div></footer>
+<footer>
+  <div class="wrap">© 2026 Arieh Allouche</div>
+</footer>
+
 </body>
 </html>
