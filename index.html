@@ -5,95 +5,605 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arieh Allouche — Data Analyst, qualité et gouvernance des données</title>
 <meta name="description" content="Arieh Allouche, data analyst spécialisé en qualité et gouvernance des données. Ancien data analyst à la DGFIP (Open Data), fondateur de MissionsPharma.pro.">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="canonical" href="https://ariehallouche.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Arieh Allouche — Data Analyst, qualité et gouvernance des données">
 <meta property="og:description" content="Deux ans à la DGFIP sur la qualité des données Open Data, fondateur de MissionsPharma.pro, formé au DevOps en 2026.">
-<meta property="og:image" content="images/photo-profil.jpg">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://ariehallouche.github.io/images/photo-profil.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#f7f8fa;
-  --ink:#14202b;
-  --mute:#4f5d6b;
-  --rule:#d9dee3;
-  --acc:#0b5c6b;
-  --acc2:#5b3fa6;
-  --card:#fff;
+/* ─── Design tokens ──────────────────────────────────────────────── */
+:root {
+  --bg: #f7f8fa;
+  --ink: #14202b;
+  --mute: #4f5d6b;
+  --rule: #d9dee3;
+  --acc: #0b5c6b;
+  --acc-hover: #094a57;
+  --acc2: #5b3fa6;
+  --acc2-hover: #4a3288;
+  --card: #fff;
+  --tint: #eef1f4;
+  --radius-card: 8px;
+  --shadow-card: 0 1px 4px rgba(20,32,43,.06), 0 4px 16px rgba(20,32,43,.06);
+  --transition: .18s ease;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{background:var(--bg);color:var(--ink);font:18px/1.6 "Source Sans 3",system-ui,sans-serif}
-a{color:var(--acc)}
-a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;line-height:1.2}
-.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
-header{position:sticky;top:0;background:rgba(247,248,250,.94);border-bottom:1px solid var(--rule);z-index:5;backdrop-filter:blur(6px)}
-header .wrap{display:flex;justify-content:space-between;align-items:center;min-height:56px;gap:8px 16px;flex-wrap:wrap}
-header strong{font-family:"Source Serif 4",serif}
-nav{display:flex;gap:6px 20px;font-size:.95rem;flex-wrap:wrap}
-nav a{text-decoration:none;color:var(--mute)}
-nav a:hover{color:var(--acc)}
-.hero{padding:64px 0 56px;display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:center}
-.hero.nophoto{grid-template-columns:1fr}
-.photo{width:100%;max-width:300px;aspect-ratio:1;object-fit:cover;border-radius:50%;border:1px solid var(--rule);justify-self:end}
-.hero h1{font-size:clamp(2rem,5vw,3.2rem);max-width:20ch;margin-bottom:20px}
-.hero p{max-width:68ch;color:var(--mute);margin-bottom:12px}
-.hero p strong{color:var(--ink)}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
-.btn{display:inline-block;padding:10px 20px;border:1px solid var(--acc);border-radius:4px;text-decoration:none;font-weight:600}
-.btn.main{background:var(--acc);color:#fff}
-section{padding:48px 0;border-top:1px solid var(--rule)}
-h2{font-size:1.6rem;margin-bottom:8px}
-.section-label{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;padding:3px 10px;border-radius:999px}
-.section-label.exp{background:#e6f0f2;color:var(--acc)}
-.section-label.edu{background:#ede8f7;color:var(--acc2)}
-.lead{color:var(--mute);max-width:62ch;margin-bottom:28px}
-.tl{list-style:none;display:grid;gap:20px}
-.tl>li{display:grid;grid-template-columns:1fr 170px;gap:16px}
-.tl .d{color:var(--mute);font-size:.95rem;text-align:right;order:2}
-.tl b{display:block}
-.tl>li.key{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--acc);border-radius:4px;padding:20px 22px}
-.tl>li.key b{font-size:1.15rem;font-family:"Source Serif 4",Georgia,serif}
-.tl .tag{display:inline-block;margin:6px 0 10px;padding:2px 10px;border:1px solid var(--acc);border-radius:999px;color:var(--acc);font-size:.85rem;font-weight:600}
-.tl .pts{margin:6px 0 0 18px;display:grid;gap:4px}
-.tl .stack{margin-top:10px;color:var(--mute);font-size:.92rem}
-.tl-edu{list-style:none;display:grid;gap:16px}
-.tl-edu>li{display:grid;grid-template-columns:1fr 170px;gap:16px;background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--acc2);border-radius:4px;padding:16px 20px}
-.tl-edu .d{color:var(--mute);font-size:.95rem;text-align:right;order:2}
-.tl-edu b{display:block;font-family:"Source Serif 4",Georgia,serif}
-.tl-edu .sub{color:var(--mute);font-size:.95rem;margin-top:4px}
-.sk{display:grid;gap:10px;max-width:90ch}
-.sk p b{display:inline}
-table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--card)}
-th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
-th{font-weight:600;background:#eef1f4}
-.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;align-items:start}
-.card.feat{grid-column:1/-1}
-.card{background:var(--card);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
-.card.feat{border-color:var(--acc)}
-.card img{display:block;width:100%;aspect-ratio:16/9;max-height:300px;object-fit:cover;object-position:top;background:#eef1f4}
-.card img.contain{object-fit:contain;padding:12px}
-.cb{padding:22px 24px}
-.cb h3{font-size:1.25rem;margin-bottom:4px}
-.meta{color:var(--mute);font-size:.9rem;margin-bottom:12px}
-.cb dl{display:grid;grid-template-columns:110px 1fr;gap:8px 16px;font-size:.98rem}
-.cb dt{font-weight:600}
-.cb .links{margin-top:14px;display:flex;gap:18px;flex-wrap:wrap;font-weight:600}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.note{font-size:.9rem;color:var(--mute);margin-top:10px}
-footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-size:.9rem}
-@media(max-width:900px){.hero{grid-template-columns:1fr;gap:24px}.photo{order:-1;max-width:170px;justify-self:start}.proj{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
-@media(max-width:700px){.wrap{padding:0 20px}.tl>li,.tl-edu>li,.cb dl{grid-template-columns:1fr}.tl>li,.tl-edu>li{gap:4px}.tl .d,.tl-edu .d{text-align:left;order:0}header .wrap{padding-top:8px;padding-bottom:8px}nav{font-size:.85rem;gap:4px 14px}}
+
+/* ─── Reset & base ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 68px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 18px/1.65 "Source Sans 3", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--acc); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--acc); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; line-height: 1.2; }
+
+/* ─── Skip link ──────────────────────────────────────────────────── */
+.skip {
+  position: absolute; left: -999px; top: 8px;
+  background: var(--acc); color: #fff;
+  padding: 8px 16px; border-radius: 4px; z-index: 100;
+  font-weight: 600; text-decoration: none;
+}
+.skip:focus { left: 8px; }
+
+/* ─── Layout ─────────────────────────────────────────────────────── */
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 40px; }
+
+/* ─── Header / nav ───────────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(247,248,250,.97);
+  border-bottom: 1px solid var(--rule);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+header .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 60px;
+  gap: 16px;
+}
+
+.site-name {
+  font-family: "Source Serif 4", serif;
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -.01em;
+}
+
+/* ── Desktop nav ─────────────────────────────────────────────────── */
+nav {
+  display: flex;
+  gap: 4px 20px;
+  font-size: .92rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--mute);
+  padding: 10px 0;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+nav a:hover { color: var(--acc); border-bottom-color: var(--acc); }
+
+/* ── Hamburger button (hidden on desktop) ────────────────────────── */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: none;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color var(--transition);
+  aria-label: "Menu";
+}
+.burger:hover { border-color: var(--acc); }
+.burger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform .22s ease, opacity .22s ease;
+}
+
+/* X animation when open */
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile nav drawer ───────────────────────────────────────────── */
+.nav-drawer {
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .28s ease;
+  border-top: 1px solid var(--rule);
+  background: rgba(247,248,250,.99);
+}
+.nav-drawer.open {
+  max-height: 480px;
+}
+.nav-drawer a {
+  display: block;
+  padding: 13px 20px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+  border-left: 3px solid transparent;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+.nav-drawer a:hover, .nav-drawer a:focus {
+  color: var(--acc);
+  border-left-color: var(--acc);
+  background: #eef5f7;
+}
+.nav-drawer a + a { border-top: 1px solid var(--rule); }
+
+/* ─── Hero ───────────────────────────────────────────────────────── */
+.hero {
+  padding: 72px 0 60px;
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 64px;
+  align-items: center;
+}
+.hero.nophoto { grid-template-columns: 1fr; }
+
+.photo {
+  width: 220px; height: 220px;
+  object-fit: cover; object-position: center top;
+  border-radius: 50%;
+  border: 3px solid var(--rule);
+  box-shadow: 0 4px 24px rgba(20,32,43,.12);
+  justify-self: end;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  max-width: 22ch;
+  margin-bottom: 20px;
+  letter-spacing: -.02em;
+}
+
+.hero-text p {
+  max-width: 64ch;
+  color: var(--mute);
+  margin-bottom: 10px;
+  line-height: 1.7;
+}
+.hero-text p strong { color: var(--ink); }
+
+.cta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 46px;
+  padding: 10px 22px;
+  border: 1.5px solid var(--acc);
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: .95rem;
+  background: var(--card);
+  color: var(--acc);
+  transition: background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+.btn:hover { background: #e6f0f2; }
+
+.btn.main {
+  background: var(--acc);
+  color: #fff;
+  border-color: var(--acc);
+}
+.btn.main:hover { background: var(--acc-hover); border-color: var(--acc-hover); }
+
+/* ─── Sections ───────────────────────────────────────────────────── */
+section { padding: 52px 0; border-top: 1px solid var(--rule); }
+
+h2 { font-size: 1.65rem; margin-bottom: 8px; letter-spacing: -.02em; }
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+.section-label.exp { background: #e2eff2; color: var(--acc); }
+.section-label.edu { background: #ede8f7; color: var(--acc2); }
+
+.lead {
+  color: var(--mute);
+  max-width: 62ch;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+/* ─── Timeline ───────────────────────────────────────────────────── */
+.tl, .tl-edu { list-style: none; display: grid; gap: 16px; }
+
+.tl > li {
+  display: grid;
+  grid-template-columns: 1fr 172px;
+  gap: 20px;
+  padding: 4px 0;
+}
+
+.tl > li.key {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--acc);
+  border-radius: var(--radius-card);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-card);
+  gap: 20px;
+}
+
+.tl-edu > li {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--acc2);
+  border-radius: var(--radius-card);
+  padding: 18px 22px;
+  box-shadow: var(--shadow-card);
+  display: grid;
+  grid-template-columns: 1fr 172px;
+  gap: 20px;
+}
+
+.d {
+  color: var(--mute);
+  font-size: .88rem;
+  text-align: right;
+  order: 2;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+.tl b, .tl-edu b { display: block; }
+.tl > li.key b { font-size: 1.15rem; font-family: "Source Serif 4", Georgia, serif; }
+.tl-edu b { font-family: "Source Serif 4", Georgia, serif; font-size: 1.05rem; }
+
+.tag {
+  display: inline-block;
+  margin: 8px 0 12px;
+  padding: 3px 12px;
+  border: 1.5px solid var(--acc);
+  border-radius: 999px;
+  color: var(--acc);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+.pts {
+  margin: 6px 0 0 18px;
+  display: grid;
+  gap: 6px;
+}
+.pts li { line-height: 1.6; }
+
+.stack {
+  margin-top: 14px;
+  color: var(--mute);
+  font-size: .9rem;
+  font-style: italic;
+}
+
+.sub {
+  display: block;
+  color: var(--mute);
+  font-size: .93rem;
+  margin-top: 6px;
+  line-height: 1.6;
+}
+
+/* ─── Compétences ────────────────────────────────────────────────── */
+.sk {
+  display: grid;
+  gap: 14px;
+  max-width: 90ch;
+}
+.sk p { line-height: 1.7; }
+
+/* ─── Table méthode qualité ──────────────────────────────────────── */
+.tw {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+table { width: 100%; border-collapse: collapse; font-size: .94rem; background: var(--card); }
+th, td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+tr:last-child td { border-bottom: 0; }
+th { font-weight: 700; background: var(--tint); font-size: .88rem; text-transform: uppercase; letter-spacing: .04em; color: var(--mute); }
+tbody tr:hover { background: #f9fafb; }
+
+/* ─── Cards ──────────────────────────────────────────────────────── */
+.proj, .two {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.card:hover { box-shadow: 0 2px 8px rgba(20,32,43,.08), 0 8px 32px rgba(20,32,43,.1); }
+
+.card.feat {
+  grid-column: 1 / -1;
+  border-color: var(--acc);
+  border-left-width: 4px;
+}
+
+/* Shot = image thumbnail */
+.shot {
+  display: block;
+  position: relative;
+  background: var(--tint);
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+/* Fixed-ratio shot for landscape screenshots */
+.shot.ratio-16-10 { aspect-ratio: 16/10; }
+.shot.ratio-16-10 img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+/* Natural ratio shot for portrait/infographic images */
+.shot.nat { aspect-ratio: auto; }
+.shot.nat img { width: 100%; height: auto; object-fit: contain; }
+
+/* "Agrandir" badge */
+a.shot::after {
+  content: "Agrandir ↗";
+  position: absolute;
+  right: 10px; bottom: 10px;
+  background: rgba(20,32,43,.82);
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+a.shot:hover::after, a.shot:focus::after { opacity: 1; }
+
+/* Horizontal scroll zone for Make schemas */
+.scroll-zone {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #f4f5f7;
+  border-bottom: 1px solid var(--rule);
+  cursor: grab;
+  position: relative;
+}
+.scroll-zone:active { cursor: grabbing; }
+.scroll-zone img { display: block; height: 180px; width: auto; max-width: none; }
+
+.scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .82rem;
+  color: var(--mute);
+  padding: 6px 18px 8px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--card);
+}
+.scroll-hint svg { flex-shrink: 0; }
+
+/* Card body */
+.cb { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.cb h3 { font-size: 1.2rem; margin-bottom: 4px; }
+.meta { color: var(--mute); font-size: .88rem; margin-bottom: 14px; line-height: 1.4; }
+
+.cb dl { display: grid; grid-template-columns: 100px 1fr; gap: 8px 16px; font-size: .96rem; flex: 1; }
+.cb dt { font-weight: 700; padding-top: 1px; }
+.cb dd { line-height: 1.6; color: var(--mute); }
+.cb dd strong { color: var(--ink); }
+
+.links { margin-top: 18px; display: flex; gap: 6px 20px; flex-wrap: wrap; font-weight: 700; }
+.links a {
+  color: var(--acc);
+  text-decoration: none;
+  padding: 6px 0;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color var(--transition);
+}
+.links a:hover { border-bottom-color: var(--acc); }
+
+.note {
+  font-size: .9rem;
+  color: var(--mute);
+  margin-top: 16px;
+  max-width: 80ch;
+  line-height: 1.65;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 32px 0;
+  color: var(--mute);
+  font-size: .9rem;
+  margin-top: 8px;
+}
+footer .wrap { display: flex; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; align-items: center; }
+footer a { color: var(--mute); text-decoration: none; }
+footer a:hover { color: var(--acc); }
+
+/* ─── Responsive: tablet ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .wrap { padding: 0 24px; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 44px 0 44px;
+  }
+  .photo {
+    order: -1;
+    width: 100px; height: 100px;
+    justify-self: start;
+    border-width: 2px;
+  }
+
+  .proj, .two { grid-template-columns: 1fr; }
+  .card.feat { grid-column: auto; }
+
+  .tl > li, .tl-edu > li {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .d { text-align: left; order: 0; }
+  .tl > li.key { gap: 8px; }
+}
+
+/* ─── Responsive: mobile ─────────────────────────────────────────── */
+@media (max-width: 680px) {
+  html { scroll-padding-top: 72px; }
+  body { font-size: 16px; }
+  .wrap { padding: 0 16px; }
+
+  /* Header: single row name + burger */
+  header .wrap {
+    flex-direction: row;
+    align-items: center;
+    min-height: 56px;
+    padding: 0 16px;
+    gap: 0;
+  }
+
+  /* Hide desktop nav, show burger */
+  nav { display: none; }
+  .burger { display: flex; margin-left: auto; }
+
+  /* Show the drawer */
+  .nav-drawer { display: flex; }
+
+  /* Hero */
+  .hero { padding: 28px 0 36px; }
+  .hero h1 { font-size: 1.75rem; margin-bottom: 14px; }
+  .photo { width: 88px; height: 88px; }
+
+  /* CTA buttons: primary full-width, others 50% */
+  .cta {
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .cta .btn { flex: 1 1 calc(50% - 4px); min-height: 48px; font-size: .92rem; padding: 10px 14px; }
+  .cta .btn.main { flex-basis: 100%; }
+
+  /* Sections */
+  section { padding: 36px 0; }
+  h2 { font-size: 1.4rem; }
+
+  /* Timeline cards */
+  .tl > li.key { padding: 16px; }
+  .tl-edu > li { padding: 14px 16px; }
+  .tl > li.key b { font-size: 1.05rem; }
+  .pts { margin-left: 14px; }
+
+  /* Skill table: hide thead, show label prefixes */
+  .tw { border-radius: 6px; }
+  thead { display: none; }
+  tbody tr { display: block; padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+  tbody tr:last-child { border-bottom: 0; }
+  tbody td { display: block; border: 0; padding: 2px 0; line-height: 1.55; }
+  tbody td:first-child { font-weight: 700; font-size: 1rem; margin-bottom: 2px; color: var(--acc); }
+  tbody td[data-l]::before { content: attr(data-l) " : "; color: var(--mute); font-size: .83rem; font-weight: 600; }
+
+  /* Cards */
+  .cb { padding: 16px; }
+  .cb h3 { font-size: 1.1rem; }
+  .cb dl { grid-template-columns: 1fr; gap: 0; }
+  .cb dt { margin-top: 10px; font-size: .88rem; text-transform: uppercase; letter-spacing: .03em; color: var(--mute); font-family: "Source Sans 3", sans-serif; }
+  .cb dt:first-child { margin-top: 0; }
+  .cb dd { margin-bottom: 2px; color: var(--ink); font-size: .94rem; }
+
+  /* Make schema scroll zones */
+  .scroll-zone img { height: 140px; }
+  .scroll-hint { display: flex; }
+
+  /* Shot ratios on mobile */
+  .shot.ratio-16-10 { aspect-ratio: 4/3; }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .card, .btn, nav a, a.shot::after { transition: none; }
+}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Aller au contenu</a>
 
-<header>
+<header id="site-header">
   <div class="wrap">
-    <strong>Arieh Allouche</strong>
+    <a class="site-name" href="#hero">Arieh Allouche</a>
+
+    <!-- Desktop nav -->
     <nav aria-label="Navigation principale">
       <a href="#experience">Expérience</a>
       <a href="#formation">Formation</a>
@@ -103,28 +613,48 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
       <a href="#automatisation">Automatisation</a>
       <a href="#contact">Contact</a>
     </nav>
+
+    <!-- Mobile burger button -->
+    <button class="burger" id="burger-btn" aria-expanded="false" aria-controls="nav-drawer" aria-label="Ouvrir le menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
+
+  <!-- Mobile drawer (hidden by default) -->
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Navigation mobile">
+    <a href="#experience">Expérience</a>
+    <a href="#formation">Formation</a>
+    <a href="#competences">Compétences</a>
+    <a href="#methode">Méthode qualité</a>
+    <a href="#projets">Projets</a>
+    <a href="#automatisation">Automatisation</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="main">
 
+  <!-- ── HERO ─────────────────────────────────────────────────────── -->
   <div class="hero" id="hero">
-    <div>
+    <img class="photo" src="images/photo-profil.jpg" alt="Portrait d'Arieh Allouche" width="220" height="220"
+         onerror="this.closest('.hero').classList.add('nophoto');this.remove()">
+    <div class="hero-text">
       <h1>Data analyst, qualité et gouvernance des données</h1>
       <p>Deux ans à la DGFIP à contrôler la qualité de jeux de données destinés à l'Open Data national, avec des outils Python développés pour et avec les bureaux métiers.</p>
       <p>Depuis 2025, je conçois et exploite <strong>MissionsPharma.pro</strong>, un SaaS pour les pharmacies d'officine. Formé au DevOps début 2026, je sais aussi déployer et surveiller ce que je développe. Je recherche un poste en CDI en qualité ou gouvernance des données, à Paris ou en Île-de-France.</p>
       <div class="cta">
-        <a class="btn main" href="cv.pdf" target="_blank" rel="noopener" aria-label="Télécharger le CV (PDF)">Télécharger le CV</a>
+        <a class="btn main" href="cv.pdf" target="_blank" rel="noopener" aria-label="Télécharger le CV (PDF)">
+          ↓ Télécharger le CV
+        </a>
         <a class="btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener" aria-label="Profil LinkedIn">LinkedIn</a>
         <a class="btn" href="https://github.com/AriehAllouche" target="_blank" rel="noopener" aria-label="Profil GitHub">GitHub</a>
       </div>
     </div>
-    <img class="photo" src="images/photo-profil.jpg" alt="Portrait d'Arieh Allouche" width="300" height="300"
-         onerror="this.parentNode.classList.add('nophoto');this.remove()">
   </div>
 
-
-  <!-- EXPÉRIENCE PROFESSIONNELLE -->
+  <!-- ── EXPÉRIENCE ─────────────────────────────────────────────── -->
   <section id="experience">
     <div class="section-label exp">💼 Expérience professionnelle</div>
     <h2>Parcours</h2>
@@ -159,7 +689,7 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
         <span class="d">sept. 2021 – sept. 2023<br>(2 ans)</span>
         <span>
           <b>Data analyst — Direction générale des Finances publiques (DGFIP)</b>
-          <span class="tag">Mon expérience en data quality</span>
+          <span class="tag">Expérience en data quality</span>
           <ul class="pts">
             <li><strong>Besoins métiers :</strong> recueil des besoins des bureaux métiers et rédaction des cahiers des charges, traduits en règles de contrôle qualité.</li>
             <li><strong>Audit et automatisation :</strong> analyse de plus de 100 jeux de données destinés à l'Open Data national ; outil de vérification en Python (Flask/Tkinter), qui a permis de valider la conformité de plus de 50 jeux critiques.</li>
@@ -167,15 +697,14 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
             <li><strong>Gouvernance :</strong> cartographie des flux (traçabilité, lineage), dictionnaires de données et glossaires pour harmoniser les définitions.</li>
             <li><strong>Restitution :</strong> tableaux de bord Tableau pour faciliter la réutilisation des données publiées sur data.gouv.fr ; co-organisation d'un hackathon Open Data.</li>
           </ul>
-          <div class="stack">Python · Flask · SQL · Tableau · Data quality · Gouvernance · Open Data</div>
+          <span class="stack">Python · Flask · SQL · Tableau · Data quality · Gouvernance · Open Data</span>
         </span>
       </li>
 
     </ul>
   </section>
 
-
-  <!-- FORMATION -->
+  <!-- ── FORMATION ──────────────────────────────────────────────── -->
   <section id="formation">
     <div class="section-label edu">🎓 Formation</div>
     <h2>Diplômes &amp; certifications</h2>
@@ -186,7 +715,7 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
         <span class="d">janv. – mars 2026</span>
         <span>
           <b>Bootcamp DevOps et Data Engineering — La Capsule</b>
-          <span class="sub">Docker, Kubernetes, CI/CD, AWS, Terraform. Projet de fin de formation : déploiement de l'application Taiga sur AWS (<a href="#projets">voir le projet</a>).</span>
+          <span class="sub">Docker, Kubernetes, CI/CD, AWS, Terraform. Projet de fin de formation : déploiement de l'application Taiga sur AWS (<a href="#taiga">voir le projet</a>).</span>
         </span>
       </li>
 
@@ -209,187 +738,341 @@ footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--mute);font-si
     </ul>
   </section>
 
-
-  <!-- COMPÉTENCES -->
+  <!-- ── COMPÉTENCES ────────────────────────────────────────────── -->
   <section id="competences">
     <h2>Compétences</h2>
     <div class="sk">
-      <p><b>Qualité et gouvernance :</b> contrôles de fiabilité, d'intégrité et de complétude, cartographie des flux et data lineage, dictionnaires de données, glossaires, Open Data (data.gouv.fr).</p>
-      <p><b>Analyse et BI :</b> SQL, Python (Pandas, NumPy, Flask), Power BI, Tableau, KPI et reporting.</p>
-      <p><b>Automatisation et DevOps :</b> Make, Docker, Kubernetes, GitLab CI/CD, Terraform, AWS (EC2, S3, IAM, VPC), Prometheus et Grafana.</p>
-      <p><b>Outils :</b> Git/GitHub, Jira, Notion, Google Sheets, Microsoft Office. <b>Langue :</b> anglais professionnel (B2).</p>
+      <p><strong>Qualité et gouvernance :</strong> contrôles de fiabilité, d'intégrité et de complétude, cartographie des flux et data lineage, dictionnaires de données, glossaires, Open Data (data.gouv.fr).</p>
+      <p><strong>Analyse et BI :</strong> SQL, Python (Pandas, NumPy, Flask), Power BI, Tableau, KPI et reporting.</p>
+      <p><strong>Automatisation et DevOps :</strong> Make, Docker, Kubernetes, GitLab CI/CD, Terraform, AWS (EC2, S3, IAM, VPC), Prometheus et Grafana.</p>
+      <p><strong>Outils :</strong> Git/GitHub, Jira, Notion, Google Sheets, Microsoft Office. <strong>Langue :</strong> anglais professionnel (B2).</p>
     </div>
   </section>
 
-
-  <!-- MÉTHODE QUALITÉ -->
+  <!-- ── MÉTHODE QUALITÉ ────────────────────────────────────────── -->
   <section id="methode">
     <h2>Méthode qualité</h2>
     <p class="lead">Mes contrôles suivent les six dimensions de qualité de la donnée, utilisées dans le cadre DAMA. Voici le type de règle que j'applique pour chacune.</p>
-    <table>
-      <thead>
-        <tr><th>Dimension</th><th>Question posée</th><th>Règle type</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Exactitude</td><td>La valeur reflète-t-elle la réalité ?</td><td>Bornes de valeurs, montants négatifs, écarts de calcul</td></tr>
-        <tr><td>Complétude</td><td>Manque-t-il des champs obligatoires ?</td><td>Taux de valeurs nulles par colonne, seuil documenté</td></tr>
-        <tr><td>Cohérence</td><td>Les sources se contredisent-elles ?</td><td>Clés étrangères, rapprochement entre tables</td></tr>
-        <tr><td>Unicité</td><td>Y a-t-il des doublons ?</td><td>Clé métier unique, déduplication traçable</td></tr>
-        <tr><td>Validité</td><td>Le format respecte-t-il le schéma ?</td><td>Expressions régulières, types, dates ISO, référentiels</td></tr>
-        <tr><td>Fraîcheur</td><td>La donnée est-elle à jour ?</td><td>Date de dernière mise à jour, alerte en cas de retard</td></tr>
-      </tbody>
-    </table>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Question posée</th>
+            <th>Règle type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Exactitude</td>
+            <td data-l="Question">La valeur reflète-t-elle la réalité ?</td>
+            <td data-l="Règle">Bornes de valeurs, montants négatifs, écarts de calcul</td>
+          </tr>
+          <tr>
+            <td>Complétude</td>
+            <td data-l="Question">Manque-t-il des champs obligatoires ?</td>
+            <td data-l="Règle">Taux de valeurs nulles par colonne, seuil documenté</td>
+          </tr>
+          <tr>
+            <td>Cohérence</td>
+            <td data-l="Question">Les sources se contredisent-elles ?</td>
+            <td data-l="Règle">Clés étrangères, rapprochement entre tables</td>
+          </tr>
+          <tr>
+            <td>Unicité</td>
+            <td data-l="Question">Y a-t-il des doublons ?</td>
+            <td data-l="Règle">Clé métier unique, déduplication traçable</td>
+          </tr>
+          <tr>
+            <td>Validité</td>
+            <td data-l="Question">Le format respecte-t-il le schéma ?</td>
+            <td data-l="Règle">Expressions régulières, types, dates ISO, référentiels</td>
+          </tr>
+          <tr>
+            <td>Fraîcheur</td>
+            <td data-l="Question">La donnée est-elle à jour ?</td>
+            <td data-l="Règle">Date de dernière mise à jour, alerte en cas de retard</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <p class="note">La documentation associée sépare les métadonnées métier (glossaire, règles de calcul) des métadonnées techniques (types, contraintes, lignage).</p>
-    <div class="card" style="margin-top:24px">
-      <img class="contain" src="images/cartographie5.jpg" alt="Planche de traçabilité et lignage de la donnée" loading="lazy">
+
+    <div class="card" style="margin-top:28px">
+      <a class="shot nat" href="images/cartographie1.jpg" target="_blank" rel="noopener" aria-label="Agrandir le modèle de cartographie (nouvel onglet)">
+        <img src="images/cartographie1.jpg" alt="Modèle de cartographie des données : onglet connaissance métier" width="1896" height="757" loading="lazy">
+      </a>
       <div class="cb">
-        <div class="meta">Planche extraite d'une cartographie de données en 5 planches</div>
+        <div class="meta">Modèle de cartographie des données utilisé à la DGFIP, en 5 onglets</div>
         <div class="links">
-          <a href="images/cartographie1.jpg" target="_blank" rel="noopener">Processus</a>
-          <a href="images/cartographie2.jpg" target="_blank" rel="noopener">Dictionnaire</a>
-          <a href="images/cartographie3.jpg" target="_blank" rel="noopener">Modèle conceptuel</a>
-          <a href="images/cartographie4.jpg" target="_blank" rel="noopener">Schéma relationnel</a>
-          <a href="images/cartographie5.jpg" target="_blank" rel="noopener">Lignage</a>
+          <a href="images/cartographie1.jpg" target="_blank" rel="noopener">Connaissance métier</a>
+          <a href="images/cartographie2.jpg" target="_blank" rel="noopener">Connaissance technique</a>
+          <a href="images/cartographie3.jpg" target="_blank" rel="noopener">Données personnelles (RGPD)</a>
+          <a href="images/cartographie4.jpg" target="_blank" rel="noopener">Métadonnées fonctionnelles</a>
+          <a href="images/cartographie5.jpg" target="_blank" rel="noopener">Métadonnées techniques et lignage</a>
         </div>
       </div>
     </div>
   </section>
 
-
-  <!-- PROJETS -->
+  <!-- ── PROJETS ────────────────────────────────────────────────── -->
   <section id="projets">
     <h2>Projets</h2>
-    <p class="lead">Un cas professionnel, un produit en exploitation, un projet de formation DevOps et trois projets personnels sur données publiques ou fictives.</p>
+    <p class="lead">Un cas professionnel, un produit en exploitation, un projet de formation DevOps et cinq projets personnels sur données publiques ou fictives.</p>
     <div class="proj">
 
+      <!-- DGFIP — Featured -->
       <article class="card feat">
         <div class="cb">
           <h3>Qualité de l'Open Data — DGFIP</h3>
           <div class="meta">Expérience professionnelle · Python, Flask, Tableau Server · 2021 – 2023</div>
           <dl>
-            <dt>Problème</dt><dd>Les jeux de données destinés à la publication Open Data devaient être conformes avant diffusion, et les erreurs corrigées par les bureaux qui en sont propriétaires.</dd>
-            <dt>Approche</dt><dd>Audit de plus de 100 jeux de données. Outil de vérification en Python (Flask/Tkinter). Workflow de retour vers les bureaux métiers pour corriger les anomalies à la source.</dd>
-            <dt>Résultat</dt><dd>Conformité validée sur plus de 50 jeux de données critiques. Tableaux de bord déployés sur Tableau Server pour faciliter la réutilisation citoyenne.</dd>
+            <dt>Problème</dt>
+            <dd>Les jeux de données destinés à la publication Open Data devaient être conformes avant diffusion, et les erreurs corrigées par les bureaux qui en sont propriétaires.</dd>
+            <dt>Approche</dt>
+            <dd>Audit de plus de 100 jeux de données. Outil de vérification en Python (Flask/Tkinter). Workflow de retour vers les bureaux métiers pour corriger les anomalies à la source.</dd>
+            <dt>Résultat</dt>
+            <dd>Conformité validée sur plus de 50 jeux de données critiques. Tableaux de bord déployés sur Tableau Server pour faciliter la réutilisation citoyenne.</dd>
           </dl>
         </div>
       </article>
 
+      <!-- MissionsPharma -->
       <article class="card">
-        <img src="images/missionspharma.jpg" alt="Capture de MissionsPharma.pro" loading="lazy">
+        <a class="shot ratio-16-10" href="images/missionspharma.jpg" target="_blank" rel="noopener" aria-label="Agrandir la capture de MissionsPharma.pro">
+          <img src="images/missionspharma.jpg" alt="Capture de la page d'accueil de MissionsPharma.pro" width="1262" height="742" loading="lazy">
+        </a>
         <div class="cb">
           <h3>MissionsPharma.pro — PharmaBilan Pro</h3>
           <div class="meta">SaaS en exploitation · React, Firebase, Stripe, Node.js · depuis 2025</div>
           <dl>
-            <dt>Problème</dt><dd>Depuis 2024, les pharmaciens peuvent réaliser les bilans de prévention de l'Assurance maladie. Au comptoir, il faut saisir le bilan de façon structurée, produire des documents conformes et les transmettre, sans perdre de temps.</dd>
-            <dt>Approche</dt><dd>Application web conçue avec des pharmaciens : saisie structurée du bilan, comptes rendus PDF conformes aux exigences Ameli (bilans de prévention et de grossesse), envoi des documents, abonnements Stripe avec essai gratuit de 7 jours. Backlog géré en Kanban.</dd>
-            <dt>Ma part</dt><dd>Produit, développement, exploitation et relation avec les pharmaciens, du besoin initial jusqu'aux premiers clients.</dd>
-            <dt>Résultat</dt><dd>Plateforme en production pour 10 pharmacies clientes. Saisie par bilan ramenée de 45 à 5 minutes, avec des dashboards Power BI de suivi.</dd>
+            <dt>Problème</dt>
+            <dd>Depuis 2024, les pharmaciens peuvent réaliser les bilans de prévention de l'Assurance maladie. Au comptoir, il faut saisir le bilan de façon structurée, produire des documents conformes et les transmettre, sans perdre de temps.</dd>
+            <dt>Approche</dt>
+            <dd>Application web conçue avec des pharmaciens : saisie structurée du bilan, comptes rendus PDF conformes aux exigences Ameli, envoi des documents, abonnements Stripe avec essai gratuit de 7 jours. Backlog géré en Kanban.</dd>
+            <dt>Ma part</dt>
+            <dd>Produit, développement, exploitation et relation avec les pharmaciens, du besoin initial jusqu'aux premiers clients.</dd>
+            <dt>Résultat</dt>
+            <dd>Plateforme en production pour 10 pharmacies clientes. Saisie par bilan ramenée de 45 à 5 minutes, avec des dashboards Power BI de suivi.</dd>
           </dl>
-          <div class="links"><a href="https://missionspharma.pro/" target="_blank" rel="noopener">Voir le site</a></div>
+          <div class="links"><a href="https://missionspharma.pro/" target="_blank" rel="noopener">Voir le site →</a></div>
         </div>
       </article>
 
-      <article class="card">
+      <!-- Taiga / DevOps -->
+      <article class="card" id="taiga">
         <div class="cb">
           <h3>Déploiement de Taiga sur AWS</h3>
           <div class="meta">Projet de fin de formation · La Capsule · Docker Swarm, Terraform, GitLab CI · 2026</div>
           <dl>
-            <dt>Problème</dt><dd>Déployer l'application de gestion agile Taiga (front, back, events) sur AWS, avec mises à jour sans coupure et un suivi de l'infrastructure.</dd>
-            <dt>Approche</dt><dd>Cluster Docker Swarm avec mises à jour progressives. Infrastructure Terraform (VPC, RDS, EFS). Pipelines GitLab CI avec SonarCloud, tests unitaires et déploiements staging/production.</dd>
-            <dt>Sécurité</dt><dd>Bastion SSH sécurisé (Fail2ban), sauvegardes PostgreSQL vers S3, monitoring Prometheus/Grafana.</dd>
-            <dt>Résultat</dt><dd>Frais réseau réduits d'environ 90 % grâce à fck-nat.</dd>
+            <dt>Problème</dt>
+            <dd>Déployer l'application de gestion agile Taiga (front, back, events) sur AWS, avec mises à jour sans coupure et un suivi de l'infrastructure.</dd>
+            <dt>Approche</dt>
+            <dd>Cluster Docker Swarm avec mises à jour progressives. Infrastructure Terraform (VPC, RDS, EFS). Pipelines GitLab CI avec SonarCloud, tests unitaires et déploiements staging/production.</dd>
+            <dt>Sécurité</dt>
+            <dd>Bastion SSH sécurisé (Fail2ban), sauvegardes PostgreSQL vers S3, monitoring Prometheus/Grafana.</dd>
+            <dt>Résultat</dt>
+            <dd>Frais réseau réduits d'environ 90 % grâce à fck-nat.</dd>
           </dl>
         </div>
       </article>
 
+      <!-- JO & trésors français -->
       <article class="card">
-        <img src="images/jo.jpg" alt="Visualisation Tableau sur les JO et les musées" loading="lazy">
+        <a class="shot ratio-16-10" href="images/jo.jpg" target="_blank" rel="noopener" aria-label="Agrandir la visualisation JO et trésors français">
+          <img src="images/jo.jpg" alt="Visualisation Tableau : cartes des épreuves des JO 2024 et des monuments de France" width="784" height="564" loading="lazy">
+        </a>
         <div class="cb">
           <h3>Les JO et les trésors français</h3>
           <div class="meta">Projet personnel · Tableau, Open Data</div>
           <dl>
-            <dt>Problème</dt><dd>Les données ouvertes du ministère de la Culture sont difficiles d'accès sans mise en contexte.</dd>
-            <dt>Approche</dt><dd>Croisement et contrôle des données des musées avec l'historique des médaillés olympiques français, présentés dans une visualisation interactive.</dd>
-            <dt>Résultat</dt><dd>Référencé comme réutilisation sur data.gouv.fr.</dd>
+            <dt>Problème</dt>
+            <dd>Les données ouvertes du ministère de la Culture sont difficiles d'accès sans mise en contexte.</dd>
+            <dt>Approche</dt>
+            <dd>Croisement et contrôle des données des musées avec l'historique des médaillés olympiques français, présentés dans une visualisation interactive.</dd>
+            <dt>Résultat</dt>
+            <dd>Référencé comme réutilisation sur data.gouv.fr.</dd>
           </dl>
-          <div class="links"><a href="https://www.data.gouv.fr/reuses/a-la-decouverte-des-jo-et-des-tresors-francais-une-exploration-interactive" target="_blank" rel="noopener">Voir sur data.gouv.fr</a></div>
+          <div class="links"><a href="https://www.data.gouv.fr/reuses/a-la-decouverte-des-jo-et-des-tresors-francais-une-exploration-interactive" target="_blank" rel="noopener">Voir sur data.gouv.fr →</a></div>
         </div>
       </article>
 
+      <!-- Épicerie fine -->
       <article class="card">
-        <img src="images/gourmet.jpg" alt="Analyse des ventes d'une épicerie fine" loading="lazy">
+        <!-- Infographie portrait : natural ratio -->
+        <a class="shot nat" href="images/gourmet.jpg" target="_blank" rel="noopener" aria-label="Agrandir l'infographie de l'analyse des ventes">
+          <img src="images/gourmet.jpg" alt="Infographie : performance commerciale 2021-2023 d'une épicerie fine" width="1536" height="1024" loading="lazy">
+        </a>
         <div class="cb">
           <h3>Audit qualité et analyse des ventes d'une épicerie fine</h3>
           <div class="meta">Projet personnel · Python, Pandas, GeoPandas</div>
           <dl>
-            <dt>Problème</dt><dd>Des tables de ventes brutes contenant des montants négatifs et des commandes en double.</dd>
-            <dt>Approche</dt><dd>Correction des anomalies de facturation, déduplication, puis analyse des ventes et cartographie des clients.</dd>
-            <dt>Résultat</dt><dd>Quatre profils de consommation et des zones géographiques sous-exploitées.</dd>
+            <dt>Problème</dt>
+            <dd>Des tables de ventes brutes contenant des montants négatifs et des commandes en double.</dd>
+            <dt>Approche</dt>
+            <dd>Correction des anomalies de facturation, déduplication, puis analyse des ventes et cartographie des clients.</dd>
+            <dt>Résultat</dt>
+            <dd>Quatre profils de consommation et des zones géographiques sous-exploitées.</dd>
           </dl>
-          <div class="links"><a href="https://github.com/AriehAllouche/Analyse_Commerce_Gourmet" target="_blank" rel="noopener">Code sur GitHub</a></div>
+          <div class="links"><a href="https://github.com/AriehAllouche/Analyse_Commerce_Gourmet" target="_blank" rel="noopener">Code sur GitHub →</a></div>
         </div>
       </article>
 
+      <!-- Power BI -->
       <article class="card">
-        <img src="images/powerbi.jpg" alt="Tableau de bord Power BI des ventes" loading="lazy">
+        <a class="shot ratio-16-10" href="images/powerbi.jpg" target="_blank" rel="noopener" aria-label="Agrandir le tableau de bord Power BI">
+          <img src="images/powerbi.jpg" alt="Tableau de bord Power BI : analyse des ventes 2023, catégorie ordinateurs" width="1621" height="903" loading="lazy">
+        </a>
         <div class="cb">
           <h3>Tableau de bord des ventes 2021–2023</h3>
           <div class="meta">Projet personnel · Power BI, DAX, modèle en étoile</div>
           <dl>
-            <dt>Problème</dt><dd>Comparer les marges par pays et par gamme sans consolider des exports Excel à la main.</dd>
-            <dt>Approche</dt><dd>Modèle en étoile, mesures DAX de comparaison N / N-1, table de dates.</dd>
-            <dt>Résultat</dt><dd>Un rapport unique pour suivre marges et rentabilité par pays sur 8 gammes.</dd>
+            <dt>Problème</dt>
+            <dd>Comparer les marges par pays et par gamme sans consolider des exports Excel à la main.</dd>
+            <dt>Approche</dt>
+            <dd>Modèle en étoile, mesures DAX de comparaison N / N-1, table de dates.</dd>
+            <dt>Résultat</dt>
+            <dd>Un rapport unique pour suivre marges et rentabilité par pays sur 8 gammes.</dd>
           </dl>
-          <div class="links"><a href="https://github.com/AriehAllouche/Analyse_vente_power_bi" target="_blank" rel="noopener">Code sur GitHub</a></div>
+          <div class="links"><a href="https://github.com/AriehAllouche/Analyse_vente_power_bi" target="_blank" rel="noopener">Code sur GitHub →</a></div>
+        </div>
+      </article>
+
+      <!-- Segmentation -->
+      <article class="card">
+        <a class="shot nat" href="images/segmentation.jpg" target="_blank" rel="noopener" aria-label="Agrandir l'infographie de segmentation client">
+          <img src="images/segmentation.jpg" alt="Infographie : analyse commerciale et segmentation client, Online Retail II 2009-2011" width="1536" height="1024" loading="lazy">
+        </a>
+        <div class="cb">
+          <h3>Segmentation client et rétention</h3>
+          <div class="meta">Projet personnel · Python, Pandas, scikit-learn · jeu Online Retail II (2009–2011)</div>
+          <dl>
+            <dt>Problème</dt>
+            <dd>Plus d'un million de transactions brutes à transformer en leviers de croissance : quels clients prioriser, quand ils partent, quand stocker.</dd>
+            <dt>Approche</dt>
+            <dd>Segmentation RFM, clustering K-means, matrices de rétention par cohorte, analyse de Pareto et de la saisonnalité.</dd>
+            <dt>Résultat</dt>
+            <dd>Segments clients exploitables (Champions, Fidèles, À risque), environ 20 % des clients pour 77 % du chiffre d'affaires, chute de la rétention dès le deuxième mois.</dd>
+          </dl>
+        </div>
+      </article>
+
+      <!-- Scraper -->
+      <article class="card">
+        <a class="shot nat" href="images/scraping.jpg" target="_blank" rel="noopener" aria-label="Agrandir l'infographie du scraper">
+          <img src="images/scraping.jpg" alt="Infographie : scraper Transfermarkt pour la Coupe du monde 2026" width="1536" height="1024" loading="lazy">
+        </a>
+        <div class="cb">
+          <h3>Scraper Transfermarkt — Coupe du monde 2026</h3>
+          <div class="meta">Projet personnel · Python, Requests, BeautifulSoup, Flask</div>
+          <dl>
+            <dt>Problème</dt>
+            <dd>Collecter à la main les effectifs et valeurs marchandes des 48 sélections est long et difficile à tenir à jour.</dd>
+            <dt>Approche</dt>
+            <dd>Découverte automatique des équipes, extraction des joueurs, nettoyage et normalisation (postes, valeurs en euros), API Flask pour lancer et suivre la collecte.</dd>
+            <dt>Résultat</dt>
+            <dd>Environ 1 500 joueurs sur 48 équipes, exportés en JSON structuré, prêts pour des tableaux de bord ou des modèles.</dd>
+          </dl>
         </div>
       </article>
 
     </div>
   </section>
 
-
-  <!-- AUTOMATISATION -->
+  <!-- ── AUTOMATISATION ─────────────────────────────────────────── -->
   <section id="automatisation">
     <h2>Automatisation avec Make</h2>
     <p class="lead">Deux scénarios que j'ai construits et que j'utilise : un envoi planifié pour ma prospection, et une alerte déclenchée en temps réel par mon application.</p>
     <div class="two">
+
       <div class="card">
-        <img class="contain" src="images/make-prospection-b2b.png" alt="Scénario Make : Google Sheets, filtre, Gmail, mise à jour de ligne" loading="lazy">
+        <div class="scroll-zone" tabindex="0" role="region" aria-label="Schéma du scénario de prospection, défilement horizontal">
+          <img src="images/make-prospection-b2b.png" alt="Scénario Make : Google Sheets, appel API Gemini, JSON, Gmail, mise à jour de ligne" width="1662" height="480" loading="lazy">
+        </div>
+        <p class="scroll-hint" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h12M10 5l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Faire glisser pour voir la suite
+        </p>
         <div class="cb">
           <h3>Prospection B2B : e-mails personnalisés</h3>
-          <div class="meta">Usage : ModAi Lab · Google Sheets, Gmail</div>
-          <p>Ma liste de prospects (organismes de formation, écoles, entreprises) est dans une feuille. Le scénario la lit à intervalle régulier et envoie à chaque contact un mail personnalisé avec les informations de sa ligne. Un filtre ne laisse passer que les lignes dont le mail n'a pas encore été envoyé, puis la ligne est mise à jour pour marquer l'envoi. Relancé, il n'écrit jamais deux fois au même contact.</p>
+          <div class="meta">Usage : ModAi Lab · Google Sheets, API Gemini, Gmail</div>
+          <p>Ma liste de prospects (organismes de formation, écoles, entreprises) est dans une feuille. Le scénario la lit à intervalle régulier, fait rédiger le message par l'API Gemini à partir des informations de la ligne, puis l'envoie par Gmail. Un filtre ne laisse passer que les lignes dont le mail n'a pas encore été envoyé, puis la ligne est mise à jour pour marquer l'envoi. Relancé, il n'écrit jamais deux fois au même contact.</p>
         </div>
       </div>
+
       <div class="card">
-        <img class="contain" src="images/make-alerte-nouveau-compte.png" alt="Scénario Make : webhook, routeur, Gmail, Telegram, Google Sheets" loading="lazy">
+        <div class="scroll-zone" tabindex="0" role="region" aria-label="Schéma du scénario d'alerte, défilement horizontal">
+          <img src="images/make-alerte-nouveau-compte.png" alt="Scénario Make : webhook, routeur, Gmail, Telegram, Google Sheets" width="1277" height="500" loading="lazy">
+        </div>
+        <p class="scroll-hint" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h12M10 5l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Faire glisser pour voir la suite
+        </p>
         <div class="cb">
           <h3>Alerte à chaque nouveau compte MissionsPharma</h3>
           <div class="meta">Usage : MissionsPharma.pro · Webhook, Gmail, Telegram, Google Sheets</div>
           <p>Quand un nouveau client crée un compte sur MissionsPharma, l'application déclenche un webhook. Je reçois aussitôt un e-mail et un message Telegram, et chaque inscription est ajoutée à une feuille de suivi qui sert de journal.</p>
         </div>
       </div>
+
     </div>
     <p class="note">Dans les deux cas, je marque ce qui a été traité et je garde une trace de chaque exécution. Ce sont les principes que j'applique aux contrôles qualité récurrents.</p>
   </section>
 
-
-  <!-- CONTACT -->
+  <!-- ── CONTACT ─────────────────────────────────────────────────── -->
   <section id="contact">
     <h2>Contact</h2>
     <p class="lead">Je réponds en général sous 24 heures.</p>
     <div class="cta">
-      <a class="btn main" href="mailto:arieh.data@gmail.com">arieh.data@gmail.com</a>
-      <a class="btn" href="cv.pdf" target="_blank" rel="noopener" aria-label="Télécharger le CV (PDF)">CV (PDF)</a>
+      <a class="btn main" href="mailto:arieh.data@gmail.com">✉ arieh.data@gmail.com</a>
+      <a class="btn" href="cv.pdf" target="_blank" rel="noopener" aria-label="Télécharger le CV (PDF)">↓ CV (PDF)</a>
       <a class="btn" href="https://www.linkedin.com/in/arieh-allouche" target="_blank" rel="noopener" aria-label="Profil LinkedIn">LinkedIn</a>
+      <a class="btn" href="https://github.com/AriehAllouche" target="_blank" rel="noopener" aria-label="Profil GitHub">GitHub</a>
     </div>
   </section>
 
 </main>
 
 <footer>
-  <div class="wrap">© 2026 Arieh Allouche</div>
+  <div class="wrap">
+    <span>© 2026 Arieh Allouche</span>
+    <a href="#hero" aria-label="Retour en haut de page">↑ Haut de page</a>
+  </div>
 </footer>
 
+<script>
+(function () {
+  var btn    = document.getElementById('burger-btn');
+  var drawer = document.getElementById('nav-drawer');
+  if (!btn || !drawer) return;
+
+  function close() {
+    drawer.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Ouvrir le menu');
+  }
+
+  btn.addEventListener('click', function () {
+    var isOpen = drawer.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+    btn.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+  });
+
+  /* Close on any nav link click */
+  drawer.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', close);
+  });
+
+  /* Close on Escape */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+  });
+
+  /* Close when clicking outside */
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) close();
+  });
+})();
+</script>
 </body>
 </html>
